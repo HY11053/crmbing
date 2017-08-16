@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsergroupsTable extends Migration
+class CreateAdvertisementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateUsergroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('usergroups', function (Blueprint $table) {
+        Schema::create('advertisements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('groupname');
+            $table->string('sections')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateUsergroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usergroups');
+        Schema::dropIfExists('advertisements');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIscreateToUsersTable extends Migration
+class CreateReferersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddIscreateToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('iscreate')->default(0);
-
+        Schema::create('referers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('sections')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,9 +27,6 @@ class AddIscreateToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->dropColumn(['is_create']);
-        });
+        Schema::dropIfExists('referers');
     }
 }

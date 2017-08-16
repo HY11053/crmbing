@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 @stop
 @section('content')
-    <!-- Info boxes -->
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
@@ -12,7 +11,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">模板总数</span>
-                    <span class="info-box-number">{{\App\Admin\Article::where('id','<>',0)->count()}}</span>
+                    <span class="info-box-number">0</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -25,7 +24,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">前台会员数</span>
-                    <span class="info-box-number">{{\App\User::where('id','<>',0)->count()}}</span>
+                    <span class="info-box-number">1</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -42,7 +41,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">品牌总数</span>
-                    <span class="info-box-number">{{\App\Model\Branddata::where('id','<>',0)->count()}}</span>
+                    <span class="info-box-number">0</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -55,11 +54,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">品牌已添加</span>
-                    @if(\App\Model\Branddata::where('status','<>',0)->count()<1)
-                        <span class="info-box-number">0%</span>
-                        @else
-                    <span class="info-box-number">{{sprintf("%.4f", \App\Model\Branddata::where('status','<>',0)->count()/(\App\Model\Branddata::where('status','=',0)->count()),0,-1)*100}}%</span>
-                        @endif
+                    <span class="info-box-number">0%</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -73,7 +68,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">模板片段数据</h3><span style="margin-left: 5px; display: inline-block;"><i class="ion ion-bonfire text-red"></i>今日模板添加数：{{\App\Admin\Article::where('created_at','>',\Carbon\Carbon::today())->count()}}</span><span style=" margin-left: 5px;isplay: inline-block;"><i class="ion ion-ios-pulse text-red"></i>今日品牌添加数：{{\App\Model\Branddata::where('status',1)->where('updated_at','>',\Carbon\Carbon::today())->count()}}</span>
+                    <h3 class="box-title">模板片段数据</h3><span style="margin-left: 5px; display: inline-block;"><i class="ion ion-bonfire text-red"></i>今日模板添加数：0</span><span style=" margin-left: 5px;isplay: inline-block;"><i class="ion ion-ios-pulse text-red"></i>今日品牌添加数：0</span>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -92,7 +87,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <p class="text-center">
-                                <strong>截止当前: {{date('Y-m-d H:i:S',time())}}模板片段数据</strong>
+                                <strong>截止当前: 2017-08-15 10:26:th模板片段数据</strong>
                             </p>
 
                             <div class="chart">
@@ -109,37 +104,37 @@
 
                             <div class="progress-group">
                                 <span class="progress-text">零食店品牌</span>
-                                <span class="progress-number"><b>{{\App\Model\Branddata::where('type','零食店品牌')->where('status','<>',0)->count()}}</b>/{{\App\Model\Branddata::where('type','零食店品牌')->count()}}</span>
+                                <span class="progress-number"><b>0</b>/0</span>
 
                                 <div class="progress sm">
-                                    <div class="progress-bar progress-bar-aqua" style="width: @if(\App\Model\Branddata::where('status',1)->where('type','零食店品牌')->count()>0){{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','零食店品牌')->count()/(\App\Model\Branddata::where('type','零食店品牌')->count()),0,-1)*100}}% @else 0% @endif"></div>
+                                    <div class="progress-bar progress-bar-aqua" style="width:  0% "></div>
                                 </div>
                             </div>
                             <!-- /.progress-group -->
                             <div class="progress-group">
                                 <span class="progress-text">炒货店品牌</span>
-                                <span class="progress-number">{{\App\Model\Branddata::where('type','炒货品牌')->where('status','<>',0)->count()}}</b>/{{\App\Model\Branddata::where('type','炒货品牌')->count()}}</span>
+                                <span class="progress-number">0</b>/0</span>
 
                                 <div class="progress sm">
-                                    <div class="progress-bar progress-bar-red" style="width: @if( \App\Model\Branddata::where('status',1)->where('type','炒货品牌')->count()>0) {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','炒货品牌')->count()/(\App\Model\Branddata::where('type','炒货品牌')->count()),0,-1)*100}}% @else 0% @endif"></div>
+                                    <div class="progress-bar progress-bar-red" style="width:  0% "></div>
                                 </div>
                             </div>
                             <!-- /.progress-group -->
                             <div class="progress-group">
                                 <span class="progress-text">干果店品牌</span>
-                                <span class="progress-number"><b>{{\App\Model\Branddata::where('type','干果品牌')->where('status','<>',0)->count()}}</b>/{{\App\Model\Branddata::where('type','干果品牌')->count()}}</span>
+                                <span class="progress-number"><b>0</b>/0</span>
 
                                 <div class="progress sm">
-                                    <div class="progress-bar progress-bar-green" style="width: @if( \App\Model\Branddata::where('status',1)->where('type','干果品牌')->count()>0) {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','干果品牌')->count()/(\App\Model\Branddata::where('type','干果品牌')->count()),0,-1)*100}}% @else 0% @endif"></div>
+                                    <div class="progress-bar progress-bar-green" style="width:  0% "></div>
                                 </div>
                             </div>
                             <!-- /.progress-group -->
                             <div class="progress-group">
                                 <span class="progress-text">进口零食品牌</span>
-                                <span class="progress-number"><b>{{\App\Model\Branddata::where('type','进口零食品牌')->where('status','<>',0)->count()}}</b>/{{\App\Model\Branddata::where('type','进口零食品牌')->count()}} </span>
+                                <span class="progress-number"><b>0</b>/0 </span>
 
                                 <div class="progress sm">
-                                    <div class="progress-bar progress-bar-yellow" style="width: @if(\App\Model\Branddata::where('type','进口零食品牌')->where('status','<>',0)->count()>0) {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','进口零食品牌')->count()/(\App\Model\Branddata::where('type','进口零食品牌')->count()),0,-1)*100}}% @else 0% @endif "></div>
+                                    <div class="progress-bar progress-bar-yellow" style="width:  0%  "></div>
                                 </div>
                             </div>
                             <!-- /.progress-group -->
@@ -153,8 +148,8 @@
                     <div class="row">
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> @if(\App\Model\Branddata::where('status',1)->where('type','零食店品牌')->count()) {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','零食店品牌')->count()/(\App\Model\Branddata::where('type','零食店品牌')->count()),0,-1)*100}}% @else 0% @endif </span>
-                                <h5 class="description-header">{{\App\Model\Branddata::where('type','零食店品牌')->count()}}</h5>
+                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i>  0%  </span>
+                                <h5 class="description-header">0</h5>
                                 <span class="description-text">零食品牌</span>
                             </div>
                             <!-- /.description-block -->
@@ -162,8 +157,8 @@
                         <!-- /.col -->
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block border-right">
-                                <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> @if(\App\Model\Branddata::where('status',1)->where('type','干果品牌')->count()) {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','干果品牌')->count()/(\App\Model\Branddata::where('type','干果品牌')->count()),0,-1)*100}}% @else 0% @endif</span>
-                                <h5 class="description-header">{{\App\Model\Branddata::where('type','干果品牌')->count()}}</h5>
+                                <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i>  0% </span>
+                                <h5 class="description-header">0</h5>
                                 <span class="description-text">干果品牌</span>
                             </div>
                             <!-- /.description-block -->
@@ -171,8 +166,8 @@
                         <!-- /.col -->
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> @if(\App\Model\Branddata::where('status',1)->where('type','炒货品牌')->count()) {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','炒货品牌')->count()/(\App\Model\Branddata::where('type','炒货品牌')->count()),0,-1)*100}}% @else 0% @endif</span>
-                                <h5 class="description-header">{{\App\Model\Branddata::where('type','炒货品牌')->count()}}</h5>
+                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i>  0% </span>
+                                <h5 class="description-header">0</h5>
                                 <span class="description-text">炒货品牌</span>
                             </div>
                             <!-- /.description-block -->
@@ -180,8 +175,8 @@
                         <!-- /.col -->
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block">
-                                <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> @if(\App\Model\Branddata::where('status',1)->where('type','进口零食品牌')->count())  {{sprintf("%.4f", \App\Model\Branddata::where('status',1)->where('type','进口零食品牌')->count()/(\App\Model\Branddata::where('type','进口零食品牌')->count()),0,-1)*100}}% @else 0% @endif</span>
-                                <h5 class="description-header">{{\App\Model\Branddata::where('type','进口零食品牌')->count()}}</h5>
+                                <span class="description-percentage text-red"><i class="fa fa-caret-down"></i>  0% </span>
+                                <h5 class="description-header">0</h5>
                                 <span class="description-text">进口零食品牌</span>
                             </div>
                             <!-- /.description-block -->
@@ -225,17 +220,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($articles as $article)
-                                <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>{{str_limit($article->content,50,'...')}}</td>
-                                    <td>{{$article->type}}</td>
-                                    <td>
-                                        <div class="sparkbar" data-color="#00a65a" data-height="20">{{$article->created_at}}</div>
-                                    </td>
-                                    <td style="text-align: center">{{$article->user->name}}</td>
-                                </tr>
-                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -248,6 +232,7 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
 @stop
 
 @section('flibs')

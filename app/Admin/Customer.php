@@ -5,10 +5,9 @@ namespace App\Admin;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Work extends Model
+class Customer extends Model
 {
-    protected $fillable=['links','text','user_id'];
-
+    protected $fillable=['name','gender','referer','wechat','phone','package','notes','operate','drainreason','inputer','advertisement','status'];
     public function getCreatedAtAttribute($date)
     {
 
@@ -19,10 +18,4 @@ class Work extends Model
 
         return Carbon::parse($date)->diffForHumans();
     }
-
-    protected function user()
-    {
-        return $this->belongsTo('App\User','user_id');
-    }
-
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
-    <title>@yield('title') _一扫光一部CRM</title>
+    <title>@yield('title') _CRM客户管理系统</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/adminlte//ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <link rel="stylesheet" href="/adminlte/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/adminlte/dist/css/skins/_all-skins.min.css">
+    @yield('headlibs')
     <style>
         .sidebar-menu span {
             font-size: 12px;
@@ -138,46 +139,43 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li class="header">零食品牌数据</li>
+                <li class="header">常用核心功能模块</li>
                 <li class=" treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>模板片段</span>
+                        <i class="fa fa-dashboard"></i> <span>客户管理</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Request::getRequestUri()=='/data/ppjs') class="active" @endif><a href="/data/ppjs"><i class="fa fa-circle-o"></i> 品牌介绍</a></li>
-                        <li @if(Request::getRequestUri()=='/data/jmlc') class="active" @endif><a href="/data/jmlc"><i class="fa fa-circle-o"></i> 加盟流程</a></li>
-                        <li @if(Request::getRequestUri()=='/data/jmtj') class="active" @endif><a href="/data/jmtj"><i class="fa fa-circle-o"></i> 加盟条件</a></li>
-                        <li @if(Request::getRequestUri()=='/data/jmzc') class="active" @endif><a href="/data/jmzc"><i class="fa fa-circle-o"></i> 加盟支持</a></li>
-                        <li @if(Request::getRequestUri()=='/data/xzjq') class="active" @endif><a href="/data/xzjq"><i class="fa fa-circle-o"></i> 选址技巧</a></li>
-                        <li @if(Request::getRequestUri()=='/data/jyjq') class="active" @endif><a href="/data/jyjq"><i class="fa fa-circle-o"></i> 经营技巧</a></li>
-                        <li @if(Request::getRequestUri()=='/data/tzfx') class="active" @endif><a href="/data/tzfx"><i class="fa fa-circle-o"></i> 开店成本</a></li>
-                        <li @if(Request::getRequestUri()=='/data/lrfx') class="active" @endif><a href="/data/lrfx"><i class="fa fa-circle-o"></i> 利润分析</a></li>
-                        <li @if(Request::getRequestUri()=='/data/comment') class="active" @endif><a href="/data/comment"><i class="fa fa-circle-o"></i> 品牌评论</a></li>
-                    </ul>
+                        <li @if(Request::getRequestUri()=='/data/add') class="active" @endif><a href="/data/add"><i class="fa fa-circle-o"></i> 数据录入</a></li>
+                        <li @if(Request::getRequestUri()=='/data/view') class="active" @endif><a href="/data/view"><i class="fa fa-circle-o"></i> 数据浏览</a></li>
+                        <li @if(Request::getRequestUri()=='/data/unclaimed') class="active" @endif><a href="/data/unclaimed"><i class="fa fa-circle-o"></i> 客服接待</a></li>
+                        <li @if(Request::getRequestUri()=='/data/jmtj') class="active" @endif><a href="/data/jmtj"><i class="fa fa-circle-o"></i> 客户来访</a></li>
+                        <li @if(Request::getRequestUri()=='/data/jmzc') class="active" @endif><a href="/data/jmzc"><i class="fa fa-circle-o"></i> 门市顾问</a></li>
+                        <li @if(Request::getRequestUri()=='/data/xzjq') class="active" @endif><a href="/data/xzjq"><i class="fa fa-circle-o"></i> 合同管理</a></li>
+                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
-                        <span>零食品牌数据</span>
+                        <span>系统杂项设置</span>
                         <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              <span class="label label-primary pull-right">6</span>
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Request::getRequestUri()=='/branddatas') class="active" @endif><a href="/branddatas"><i class="fa fa-circle-o"></i> 所有品牌</a></li>
-                        <li @if(Request::getRequestUri()=='/branddatas/lsd') class="active" @endif><a href="/branddatas/lsd"><i class="fa fa-circle-o"></i> 零食店品牌</a></li>
-                        <li @if(Request::getRequestUri()=='/branddatas/chd') class="active" @endif><a href="/branddatas/chd"><i class="fa fa-circle-o"></i>  炒货店品牌</a></li>
-                        <li @if(Request::getRequestUri()=='/branddatas/ggd') class="active" @endif><a href="/branddatas/ggd"><i class="fa fa-circle-o"></i> 干果店品牌</a></li>
-                        <li @if(Request::getRequestUri()=='/branddatas/jklsd') class="active" @endif><a href="/branddatas/jklsd"><i class="fa fa-circle-o"></i> 进口零食品牌</a></li>
-                        <li @if(Request::getRequestUri()=='/branddatas/ssd') class="active" @endif><a href="/branddatas/ssd"><i class="fa fa-circle-o"></i> 熟食品牌</a></li>
+                        <li @if(Request::getRequestUri()=='/sysconf/refereradd') class="active" @endif><a href="/sysconf/refereradd"><i class="fa fa-circle-o"></i> 信息来源添加</a></li>
+                        <li @if(Request::getRequestUri()=='/sysconf/refereraddlist') class="active" @endif><a href="/sysconf/refereraddlist"><i class="fa fa-circle-o"></i> 信息来源列表</a></li>
+                        <li @if(Request::getRequestUri()=='/sysconf/packageadd') class="active" @endif><a href="/sysconf/packageadd"><i class="fa fa-circle-o"></i>  套餐类型添加</a></li>
+                        <li @if(Request::getRequestUri()=='/sysconf/packagelist') class="active" @endif><a href="/sysconf/packagelist"><i class="fa fa-circle-o"></i> 套餐分类列表</a></li>
+                        <li @if(Request::getRequestUri()=='/sysconf/advertisementadd') class="active" @endif><a href="/sysconf/advertisementadd"><i class="fa fa-circle-o"></i> 广告渠道添加</a></li>
+                        <li @if(Request::getRequestUri()=='/sysconf/advertisementlist') class="active" @endif><a href="/sysconf/advertisementlist"><i class="fa fa-circle-o"></i> 广告渠道列表</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-th"></i> <span>前台会员中心</span>
+                        <i class="fa fa-th"></i> <span>用户管理中心</span>
                         <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span>

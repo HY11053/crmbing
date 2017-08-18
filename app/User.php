@@ -14,9 +14,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password','gid','type','is_create'
-    ];
+    protected $fillable = ['name', 'email', 'password','groupid'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,18 +27,7 @@ class User extends Authenticatable
 
     protected function group()
     {
-        return $this->belongsTo('App\Admin\Usergroup','id');
+        return $this->belongsTo('App\Admin\UserGroup','id');
     }
-    protected function articles()
-    {
-        return $this->hasMany('App\Admin\Article','user_id');
-    }
-    protected function bianji()
-    {
-        return $this->hasMany('App\Admin\Work','user_id');
-    }
-    protected function waitui()
-    {
-        return $this->hasMany('App\Admin\Worktui','user_id');
-    }
+
 }

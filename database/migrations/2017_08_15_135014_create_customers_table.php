@@ -19,13 +19,15 @@ class CreateCustomersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('referer')->nullable();
             $table->string('wechat')->nullable();
-            $table->string('phone',20)->nullable();
+            $table->string('phone',20)->unique();
             $table->string('package')->nullable();
             $table->string('notes')->nullable();
             $table->string('operate')->nullable();
             $table->string('drainreason')->nullable();
             $table->string('inputer')->nullable();
             $table->string('advertisement')->nullable();
+            $table->timestamp('allocated_at')->nullable();
+            $table->timestamp('visit_at')->nullable();
             $table->string('status')->default('未分配');
             $table->timestamps();
         });

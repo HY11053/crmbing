@@ -12,11 +12,21 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function Index()
+    /**
+     * 会员用户列表视图
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function userLists()
     {
         $users=User::paginate(50);
         return view('admin.users',compact('users'));
     }
+
+    /**
+     * 会员用户编辑
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     */
     public function UserEdit($id)
     {
         $user=User::where('id',$id)->first();
@@ -26,50 +36,41 @@ class UserController extends Controller
         $groups=Usergroup::all();
         return view('admin.useredit',compact('user','groups'));
     }
-    public function AdminUserEdit($id)
+
+    /**
+     * 高级管理员修改
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     */
+    public function adminUserEdit($id)
     {
         if (Auth::id()!=1){
             return '非法操作';
         }
         $user=User::where('id',$id)->first();
-        $groups=Usergroup::all();
+        $groups=Usergroup::pluck('groupname');
         return view('admin.useredit',compact('user','groups'));
     }
-    public function PostUserEdit(UsersRequest $request,$id)
+
+    /**
+     * 会员信息更改数据处理
+     * @param UsersRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function adminPostUserEdit(UsersRequest $request,$id)
     {
-        User::where('id',$id)->update(['name'=>$request['name'],'email'=>$request['email'],'password'=>bcrypt($request['password']),'gid'=>$request['gid'],'type'=>$request['type'],'is_create'=>$request['is_create']]);
-        return redirect(route('users'));
+        User::findOrFail($id)->update($request->all());
+        return redirect(route('userlist'));
     }
+
+    /**删除会员
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function Delete($id)
     {
         User::where('id',$id)->delete();
-        redirect()->back();
-    }
-
-    public function UserGroup()
-    {
-        $groups=Usergroup::where('id','<>',0)->get();
-        return view('admin.usergroup',compact('groups'));
-    }
-
-    public function UserGroupCreate()
-    {
-        return view('admin.groupcreate');
-    }
-    public function UserGroupEdit($id)
-    {
-        $thisgroup=Usergroup::where('id',$id)->first();
-        return view('admin.groupedit',compact('thisgroup'));
-    }
-    public function PostUserGroupCreate(Request $request)
-    {
-       Usergroup::create($request->all());
-       return redirect(route('usergroup'));
-    }
-
-    public function PostUserGroupEdit(Request $request,$id)
-    {
-        Usergroup::where('id',$id)->update(['groupname'=>$request['groupname']]);
-        return redirect(route('usergroup'));
+        return redirect()->back();
     }
 }

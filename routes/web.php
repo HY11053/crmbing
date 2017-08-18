@@ -24,7 +24,12 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('/data/view', 'DataControlController@dataView')->name('dataview');
     Route::get('/data/add', 'DataControlController@dataAddition')->name('dataimport');
     Route::post('data/add', 'DataControlController@postDataAddition')->name('postdata');
+    Route::get('data/edit/{id}', 'DataControlController@DataEdit');
+    Route::post('data/edit/{id}', 'DataControlController@postDataEdit')->name('postdataedit');
     Route::get('data/unclaimed', 'DataControlController@dataUnclaimed')->name('dataunclaimed');
+    Route::get('data/customerservice', 'DataControlController@Customerservice')->name('customerservice');
+    Route::get('data/customervisit', 'DataControlController@CustomerVisit')->name('customervisit');
+    Route::post('/unclaimed/status/{id}', 'DataControlController@dataUnclaimedStatus');
     Route::get('/sysconf/refereradd', 'SysconfControlController@refererAdd');
     Route::post('/sysconf/refereradd', 'SysconfControlController@postRefererAdd')->name('refereradd');
     Route::get('/sysconf/refereraddlist', 'SysconfControlController@refererList')->name('refererlist');
@@ -34,4 +39,11 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('/sysconf/advertisementadd', 'SysconfControlController@advertisementAdd');
     Route::post('/sysconf/advertisementadd', 'SysconfControlController@postAdvertisementAdd')->name('advertisementadd');
     Route::get('/sysconf/advertisementlist', 'SysconfControlController@advertisementList')->name('advertisementlist');
+    Route::get('user/list','UserController@userLists')->name('userlist');
+    Route::get('/adminuser/edit/{id}','UserController@adminUserEdit');
+    Route::post('/adminuser/edit/{id}','UserController@adminPostUserEdit')->name('adminuser.edit');
+    Route::get('user/group','UserGroupController@groupLists')->name('grouplist');
+    Route::get('/user/groupcreate','UserGroupController@groupCreate');
+    Route::post('/user/groupcreate','UserGroupController@postGroupCreate');
+
 });

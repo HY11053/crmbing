@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="row">
-        {{Form::open(array('route' => 'postdata'))}}
+        {{Form::model($thiscunstomdata,array('route' =>array('postdataedit', $thiscunstomdata->id)))}}
         <div class="col-md-12">
             <!-- The time line -->
             <ul class="timeline">
@@ -23,7 +23,7 @@
                     <div class="timeline-item">
                         <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
 
-                        <h3 class="timeline-header"><a href="#">客户信息录入|</a> 请按需填写</h3>
+                        <h3 class="timeline-header"><a href="#">客户信息更改|</a> 请按需填写</h3>
 
                         <div class="timeline-body">
                             <div class="row">
@@ -74,6 +74,15 @@
                                     {{Form::label('advertisement', '广告来源', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
                                     <div class="col-md-8 col-sm-9 col-xs-12">
                                         {{Form::select('advertisement', $advertisements, null,array('class'=>'form-control select2','style'=>'width: 100%'))}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{Form::label('wedding', '到店时间', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
+                                    <div class="input-group date  col-md-8 col-sm-9 col-xs-12" style="padding-left: 15px;">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        {{Form::text('visit_at', null, array('class' => 'form-control pull-right','id'=>'datepicker','placeholder'=>'点击选择到店时间','style'=>'width:100%'))}}
                                     </div>
                                 </div>
                             </div>

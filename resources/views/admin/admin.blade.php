@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
     <title>@yield('title') _CRM客户管理系统</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/adminlte//ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -151,7 +152,8 @@
                         <li @if(Request::getRequestUri()=='/data/add') class="active" @endif><a href="/data/add"><i class="fa fa-circle-o"></i> 数据录入</a></li>
                         <li @if(Request::getRequestUri()=='/data/view') class="active" @endif><a href="/data/view"><i class="fa fa-circle-o"></i> 数据浏览</a></li>
                         <li @if(Request::getRequestUri()=='/data/unclaimed') class="active" @endif><a href="/data/unclaimed"><i class="fa fa-circle-o"></i> 客服接待</a></li>
-                        <li @if(Request::getRequestUri()=='/data/jmtj') class="active" @endif><a href="/data/jmtj"><i class="fa fa-circle-o"></i> 客户来访</a></li>
+                        <li @if(Request::getRequestUri()=='/data/customerservice') class="active" @endif><a href="/data/customerservice"><i class="fa fa-circle-o"></i> 已接待客户</a></li>
+                        <li @if(Request::getRequestUri()=='/data/customervisit') class="active" @endif><a href="/data/customervisit"><i class="fa fa-circle-o"></i> 客户来访</a></li>
                         <li @if(Request::getRequestUri()=='/data/jmzc') class="active" @endif><a href="/data/jmzc"><i class="fa fa-circle-o"></i> 门市顾问</a></li>
                         <li @if(Request::getRequestUri()=='/data/xzjq') class="active" @endif><a href="/data/xzjq"><i class="fa fa-circle-o"></i> 合同管理</a></li>
                      </ul>

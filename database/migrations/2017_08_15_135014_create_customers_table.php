@@ -30,6 +30,8 @@ class CreateCustomersTable extends Migration
             $table->timestamp('allocated_at')->nullable();
             $table->timestamp('visit_at')->nullable();
             $table->string('status')->default('未分配');
+            $table->string('storestatus')->default('未接待');
+            $table->string('dealstatus')->nullable();
             $table->timestamps();
         });
     }

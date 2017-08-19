@@ -18,10 +18,11 @@
                             <th>QQ/微信</th>
                             <th>手机号码</th>
                             <th>套餐类型</th>
+                            <th>已付款</th>
                             <th>备注</th>
-                            <th>客户状态</th>
-                            <th>分配</th>
-                            <th>分配时间</th>
+                            <th>客服信息</th>
+                            <th>来店时间</th>
+                            <th>门店状态</th>
                             <th >操作</th>
                         </tr>
                         @foreach($customerVisits as $customerVisit)
@@ -31,11 +32,13 @@
                                 <td>{{$customerVisit->gender}}</td>
                                 <td>{{$customerVisit->wechat}}</td>
                                 <td>{{$customerVisit->phone}}</td>
-                                <td>{{$customerVisit->package}}</td>
+                                <td>{{$customerVisit->packages->sections}}</td>
+                                <td>{{$customerVisit->payment}}</td>
                                 <td>{{$customerVisit->notes}}</td>
-                                <td>{{$customerVisit->status}}</td>
-                                <td>{{$customerVisit->operate}}</td>
-                                <td>{{$customerVisit->allocated_at}}</td>
+                                <td>{{$customerVisit->operate}}--{{$customerVisit->status}}</td>
+                                <td>{{$customerVisit->visit_at}}</td>
+                                <td>{{$customerVisit->storestatus}}</td>
+
                                 <td><span class="badge bg-green"><a href="/data/edit/{{$customerVisit->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> </td>
                             </tr>
                         @endforeach

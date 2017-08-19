@@ -87,7 +87,7 @@
                                     {{Form::label('notes', '备注信息', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
                                     <div class="input-group col-md-8 col-sm-9 col-xs-12">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-sticky-note" style="width:10px;"></i>
+                                            <i class="fa fa-file-text-o" style="width:10px;"></i>
                                         </div>
                                         {{Form::text('notes', null, array('class' => 'form-control pull-right','id'=>'brandmap','placeholder'=>'备注信息'))}}
                                     </div>

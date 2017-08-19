@@ -1,14 +1,18 @@
 @extends('admin.admin')
 @section('title')客户信息录入 @stop
 @section('headlibs')
+    <link href="/AdminLTE/plugins/iCheck/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
+    <style>
+        .basic_info .radio{margin-top: 0px;}
+    </style>
 @stop
 @section('content')
     <div class="row">
         {{Form::model($thiscunstomdata,array('route' =>array('postdataedit', $thiscunstomdata->id)))}}
         <div class="col-md-12">
             <!-- The time line -->
-            <ul class="timeline">
+            <ul class="timeline basic_info">
                 <!-- timeline time label -->
                 <li class="time-label">
                   <span class="bg-red">
@@ -17,7 +21,7 @@
                 </li>
                 <!-- timeline item -->
                 <li>
-                    <i class=" fa fa-file-text bg-maroon"></i>
+                    <i class=" fa fa-user bg-aqua"></i>
 
                     <div class="timeline-item">
                         <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
@@ -32,7 +36,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('name',null, array('class' => 'form-control  pull-right','id'=>'brandname','placeholder'=>'客户姓名'))}}
+                                        {{Form::text('name',null, array('class' => 'form-control  pull-right','placeholder'=>'客户姓名'))}}
                                     </div>
                                 </div>
 
@@ -60,7 +64,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-weixin" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('wechat', null, array('class' => 'form-control col-md-10 pull-right','id'=>'brandnum','placeholder'=>'QQ/微信'))}}
+                                        {{Form::text('wechat', null, array('class' => 'form-control col-md-10 pull-right','placeholder'=>'QQ/微信'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -69,7 +73,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-phone" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('phone', null, array('class' => 'form-control col-md-10 pull-right','id'=>'brandpay','placeholder'=>'手机号码'))}}
+                                        {{Form::text('phone', null, array('class' => 'form-control col-md-10 pull-right','placeholder'=>'手机号码'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -85,9 +89,9 @@
                                     {{Form::label('notes', '备注信息', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
                                     <div class="input-group col-md-8 col-sm-9 col-xs-12">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-sticky-note" style="width:10px;"></i>
+                                            <i class="fa fa-file-text-o" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('notes', null, array('class' => 'form-control pull-right','id'=>'brandmap','placeholder'=>'备注信息'))}}
+                                        {{Form::text('notes', null, array('class' => 'form-control pull-right','placeholder'=>'备注信息'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -115,7 +119,24 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-jpy" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('payment', null, array('class' => 'form-control pull-right','id'=>'datepicker','placeholder'=>'请输入已交金额','style'=>'width:100%'))}}
+                                        {{Form::text('payment', null, array('class' => 'form-control pull-right','placeholder'=>'请输入已交金额','style'=>'width:100%'))}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    {{Form::label('dealstatus', '订单状态', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
+                                    <div class="radio col-md-4 col-sm-9 col-xs-12">
+                                        {{Form::radio('dealstatus', '1', false,array('class'=>'flat-red'))}} 已成单
+                                        {{Form::radio('dealstatus', '2', false,array('class'=>'flat-red'))}} 退单
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{Form::label('drainreason', '退单原因', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
+                                    <div class="input-group col-md-8 col-sm-9 col-xs-12">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-map-o" style="width:10px;"></i>
+                                        </div>
+                                        {{Form::text('drainreason', null, array('class' => 'form-control pull-right','placeholder'=>'退单原因'))}}
                                     </div>
                                 </div>
 
@@ -139,7 +160,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item"><i class="fa fa-blind" style="padding-right: 5px;"></i>{{$thiscunstomdata->created_at}}---{{$thiscunstomdata->inputer}}录入数据</li>
                                 @foreach($thiscunstomdata->Cnotes as $cnote)
-                                <li class="list-group-item">{{$thiscunstomdata->created_at}}{{$cnote->notes}}</li>
+                                    <li class="list-group-item"><i class="fa fa-blind" style="padding-right: 5px;"></i>{{$thiscunstomdata->created_at}}{{$cnote->notes}}</li>
                                     @endforeach
                             </ul>
                         </div>
@@ -173,9 +194,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
         })
-
     </script>
 
     <script>
@@ -184,6 +203,11 @@
                 autoclose: true,
                 language: 'zh-CN',
                 todayHighlight: true
+            });
+            //Flat red color scheme for iCheck
+            $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
             });
 
         });

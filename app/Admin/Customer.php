@@ -23,6 +23,12 @@ class Customer extends Model
     {
         return Carbon::parse($date)->diffForHumans();
     }
+
+    public function getVisitAtAttribute($date)
+    {
+        return Carbon::parse($date)->diffForHumans();
+    }
+
     public function setVisitAtAttribute($date)
     {
         if(!empty($date) && strpos($date,':')==false)
@@ -34,5 +40,9 @@ class Customer extends Model
     protected function Cnotes()
     {
         return $this->hasMany('App\Admin\Customnote','cid');
+    }
+    protected function packages()
+    {
+        return $this->belongsTo('App\Admin\Packagetype','package','id');
     }
 }

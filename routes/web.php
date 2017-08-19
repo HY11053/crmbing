@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::post('data/add', 'DataControlController@postDataAddition')->name('postdata');
     Route::get('data/edit/{id}', 'DataControlController@DataEdit');
     Route::post('data/edit/{id}', 'DataControlController@postDataEdit')->name('postdataedit');
+    Route::get('data/delete/{id}', 'DataControlController@DataDelete');
     Route::get('data/unclaimed', 'DataControlController@dataUnclaimed')->name('dataunclaimed');
     Route::get('data/customerservice', 'DataControlController@Customerservice')->name('customerservice');
     Route::get('data/customervisit', 'DataControlController@CustomerVisit')->name('customervisit');

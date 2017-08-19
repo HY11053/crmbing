@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $fillable=['name','gender','referer','wechat','phone','package','notes','operate','drainreason','inputer','advertisement','status','allocated_at','visit_at'];
+    protected $fillable=['name','gender','referer','wechat','phone','package','notes','operate','drainreason','inputer','advertisement','status','allocated_at','visit_at','payment','follownum'];
     public function getCreatedAtAttribute($date)
     {
 
@@ -25,10 +25,9 @@ class Customer extends Model
     }
     public function setVisitAtAttribute($date)
     {
-        if(!empty($date) && strpos($date, '/') !== false)
+        if(!empty($date))
         {
-            $newdate=explode('/',$date);
-            $this->attributes['visit_at'] = Carbon::createFromFormat('Y-m-d',$newdate[2].'-'.$newdate[0].'-'.$newdate[1]);
+            $this->attributes['visit_at'] = Carbon::createFromFormat('Y-m-d',$date);
         }
     }
 }

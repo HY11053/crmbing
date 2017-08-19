@@ -26,7 +26,7 @@ class SysconfControlController extends Controller
     public function postRefererAdd(Request $request)
     {
         Referer::create($request->all());
-        redirect(route('refererlist'));
+        return redirect(route('refererlist'));
     }
 
     /**

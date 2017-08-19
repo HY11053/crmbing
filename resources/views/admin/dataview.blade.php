@@ -40,7 +40,7 @@
                                 <td>{{$cunstomdata->status}}</td>
                                 <td>{{$cunstomdata->operate}}</td>
                                 <td>{{$cunstomdata->created_at}}</td>
-                                <td><span class="badge bg-green"><a href="/admin/phone/edit/" style="color: #fff; font-weight: normal;">编辑</a></span> <span class="badge bg-red"><a href="/admin/phone/delete/" style="color: #fff; font-weight: normal;">删除</a> </span></td>
+                                <td><span class="badge bg-green"><a href="/data/edit/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> <span class="badge bg-red"><a href="/data/delete/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">删除</a> </span></td>
                             </tr>
                         @endforeach
                     </table>

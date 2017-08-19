@@ -18,12 +18,14 @@
                             <th>QQ/微信</th>
                             <th>手机号码</th>
                             <th>套餐类型</th>
+                            <th>已交金额</th>
                             <th>备注</th>
                             <th>录入者</th>
                             <th>录入时间</th>
                             <th>客户状态</th>
                             <th>分配</th>
                             <th>分配时间</th>
+                            <th>跟进次数</th>
                             <th >操作</th>
                         </tr>
                         @foreach($cunstomdatas as $cunstomdata)
@@ -34,12 +36,14 @@
                                 <td>{{$cunstomdata->wechat}}</td>
                                 <td>{{$cunstomdata->phone}}</td>
                                 <td>{{$cunstomdata->package}}</td>
-                                <td>{{$cunstomdata->notes}}</td>
+                                <td>{{$cunstomdata->payment}}</td>
+                                <td>{{str_limit($cunstomdata->notes,20,'...')}}</td>
                                 <td>{{$cunstomdata->inputer}}</td>
                                 <td>{{$cunstomdata->created_at}}</td>
                                 <td>{{$cunstomdata->status}}</td>
                                 <td>{{$cunstomdata->operate}}</td>
                                 <td>{{$cunstomdata->allocated_at}}</td>
+                                <td>{{$cunstomdata->follownum}}</td>
                                 <td><span class="badge bg-green"><a href="/data/edit/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> </td>
                             </tr>
                         @endforeach

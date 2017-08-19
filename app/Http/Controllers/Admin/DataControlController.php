@@ -50,47 +50,6 @@ class DataControlController extends Controller
     }
 
     /**
-     * 未领取数据状态
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function dataUnclaimed()
-    {
-        $dataUnclaimeds=Customer::where('operate',null)->orwhere('operate','')->paginate(50);
-        return view('admin.unclaimed',compact('dataUnclaimeds'));
-    }
-
-    /**
-     * 客服领取数据处理
-     * @param Request $request
-     * @return array
-     */
-    public function dataUnclaimedStatus(Request $request)
-    {
-        $status='已领取';
-        $operateUser=User::where('id',Auth::id())->value('name');
-        if(empty(Customer::where('id',$request['id'])->value('operate')))
-        {
-            $request['allocated_at']=Carbon::now();
-            Customer::where('id',$request->input('id'))->update(['status'=>$status,'operate'=>$operateUser,'allocated_at'=>$request['allocated_at']]);
-        }else{
-            $status=Customer::where('id',$request['id'])->value('operate').'已领取';
-            $operateUser=Customer::where('id',$request->input('id'))->value('operate');
-        }
-
-        return [$status,$operateUser];
-    }
-
-    /**
-     * 客服已接单数据
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function customerservice()
-    {
-        $cunstomdatas=Customer::where('operate',User::where('id',Auth::id())->value('name'))->paginate(50);
-        return view('admin.customerservice',compact('cunstomdatas'));
-    }
-
-    /**
      * 客户信息编辑
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -115,6 +74,65 @@ class DataControlController extends Controller
         Customer::findOrfail($id)->update($request->all());
         return redirect(route('customerservice'));
     }
+
+    /**
+     * 数据删除
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function DataDelete($id)
+    {
+        if (Auth::id()!=1){
+            abort(403);
+        }
+        Customer::where('id',Customer::findOrfail($id)->id)->delete();
+        return redirect(route('dataview'));
+    }
+
+
+    /**
+     * 未领取数据状态
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function dataUnclaimed()
+    {
+        $dataUnclaimeds=Customer::where('operate',null)->orwhere('operate','')->paginate(50);
+        return view('admin.unclaimed',compact('dataUnclaimeds'));
+    }
+
+    /**
+     * 客服领取数据处理
+     * @param Request $request
+     * @return array
+     */
+    public function dataUnclaimedStatus(Request $request)
+    {
+        $status='已领取';
+        $operateUser=User::where('id',Auth::id())->value('name');
+        if(empty(Customer::where('id',$request['id'])->value('operate')))
+        {
+            $request['allocated_at']=Carbon::now();
+            $request['follownum']=Customer::where('id',$request['id'])->value('follownum')+1;
+            $request['notes']=Customer::where('id',$request['id'])->value('notes').'---'.Carbon::now().'分配给'.User::where('id',Auth::id())->value('name');
+            Customer::where('id',$request->input('id'))->update(['status'=>$status,'operate'=>$operateUser,'allocated_at'=>$request['allocated_at'],'follownum'=>$request['follownum'],'notes'=>$request['notes']]);
+        }else{
+            $status=Customer::where('id',$request['id'])->value('operate').'已领取';
+            $operateUser=Customer::where('id',$request->input('id'))->value('operate');
+        }
+
+        return [$status,$operateUser];
+    }
+
+    /**
+     * 客服已接单数据
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function customerservice()
+    {
+        $cunstomdatas=Customer::where('operate',User::where('id',Auth::id())->value('name'))->paginate(50);
+        return view('admin.customerservice',compact('cunstomdatas'));
+    }
+
 
     /**
      * 门店接待

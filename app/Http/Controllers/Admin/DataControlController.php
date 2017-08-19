@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin\Advertisement;
 use App\Admin\Customer;
+use App\Admin\Customnote;
 use App\Admin\Packagetype;
 use App\Admin\Referer;
 use App\User;
@@ -71,6 +72,11 @@ class DataControlController extends Controller
      */
     public function postDataEdit(Request $request,$id)
     {
+        if($request['notes']!=Customer::where('id',$id)->value('notes'))
+        {
+            $notes=User::where('id',Auth::id())->value('name').'将信息【'.Customer::where('id',$id)->value('notes').'】修改为'.$request['notes'];
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+        }
         Customer::findOrfail($id)->update($request->all());
         return redirect(route('customerservice'));
     }
@@ -112,9 +118,9 @@ class DataControlController extends Controller
         if(empty(Customer::where('id',$request['id'])->value('operate')))
         {
             $request['allocated_at']=Carbon::now();
-            $request['follownum']=Customer::where('id',$request['id'])->value('follownum')+1;
-            $request['notes']=Customer::where('id',$request['id'])->value('notes').'---'.Carbon::now().'分配给'.User::where('id',Auth::id())->value('name');
-            Customer::where('id',$request->input('id'))->update(['status'=>$status,'operate'=>$operateUser,'allocated_at'=>$request['allocated_at'],'follownum'=>$request['follownum'],'notes'=>$request['notes']]);
+            $request['notes']='分配给'.User::where('id',Auth::id())->value('name');
+            Customnote::create(['cid'=>$request['id'],'notes'=>$request['notes']]);
+            Customer::where('id',$request->input('id'))->update(['status'=>$status,'operate'=>$operateUser,'allocated_at'=>$request['allocated_at']]);
         }else{
             $status=Customer::where('id',$request['id'])->value('operate').'已领取';
             $operateUser=Customer::where('id',$request->input('id'))->value('operate');

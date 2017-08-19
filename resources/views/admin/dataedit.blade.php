@@ -128,6 +128,27 @@
                 </li>
                 <!-- END timeline item -->
                 <li>
+                    <i class="fa fa-comments bg-yellow"></i>
+
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                        <h3 class="timeline-header"><a href="#">客户跟踪|</a> 客户数据跟踪时间线</h3>
+
+                        <div class="timeline-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><i class="fa fa-blind" style="padding-right: 5px;"></i>{{$thiscunstomdata->created_at}}---{{$thiscunstomdata->inputer}}录入数据</li>
+                                @foreach($thiscunstomdata->Cnotes as $cnote)
+                                <li class="list-group-item">{{$thiscunstomdata->created_at}}{{$cnote->notes}}</li>
+                                    @endforeach
+                            </ul>
+                        </div>
+                        <div class="timeline-footer">
+                            <a class="btn btn-warning btn-flat btn-xs">客户信息跟踪时间线</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
                     <i class="fa fa-clock-o bg-gray"></i>
                 </li>
             </ul>

@@ -43,7 +43,7 @@
                                 <td>{{$cunstomdata->status}}</td>
                                 <td>{{$cunstomdata->operate}}</td>
                                 <td>{{$cunstomdata->allocated_at}}</td>
-                                <td>{{$cunstomdata->follownum}}</td>
+                                <td class="text-center"><span class="badge bg-red-active" style="cursor: pointer" title="@foreach($cunstomdata->Cnotes as $cnote) 【{{$cnote->notes}}】 @endforeach">{{$cunstomdata->Cnotes->count()}}</span></td>
                                 <td><span class="badge bg-green"><a href="/data/edit/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> </td>
                             </tr>
                         @endforeach

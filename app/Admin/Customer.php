@@ -25,9 +25,14 @@ class Customer extends Model
     }
     public function setVisitAtAttribute($date)
     {
-        if(!empty($date))
+        if(!empty($date) && strpos($date,':')==false)
         {
             $this->attributes['visit_at'] = Carbon::createFromFormat('Y-m-d',$date);
         }
+    }
+
+    protected function Cnotes()
+    {
+        return $this->hasMany('App\Admin\Customnote','cid');
     }
 }

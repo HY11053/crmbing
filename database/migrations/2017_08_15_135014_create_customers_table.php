@@ -27,7 +27,6 @@ class CreateCustomersTable extends Migration
             $table->string('inputer')->nullable();
             $table->string('advertisement')->nullable();
             $table->integer('payment')->nullable();
-            $table->integer('follownum')->default(0);
             $table->timestamp('allocated_at')->nullable();
             $table->timestamp('visit_at')->nullable();
             $table->string('status')->default('未分配');

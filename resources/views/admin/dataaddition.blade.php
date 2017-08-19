@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="row">
-        {{Form::open(array('route' => 'postdata','class'=>'form-horizontal'))}}
+        {{Form::open(array('route' => 'postdata'))}}
         <div class="col-md-12">
             <!-- The time line -->
             <ul class="timeline">

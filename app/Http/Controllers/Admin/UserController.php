@@ -33,7 +33,7 @@ class UserController extends Controller
         if(User::where('id',Auth::id())->value('type')==0){
             return '无权限修改';
         }
-        $groups=Usergroup::all();
+        $groups=Usergroup::pluck('groupname','id');
         return view('admin.useredit',compact('user','groups'));
     }
 
@@ -48,7 +48,7 @@ class UserController extends Controller
             return '非法操作';
         }
         $user=User::where('id',$id)->first();
-        $groups=Usergroup::pluck('groupname');
+        $groups=Usergroup::pluck('groupname','id');
         return view('admin.useredit',compact('user','groups'));
     }
 
@@ -60,6 +60,7 @@ class UserController extends Controller
      */
     public function adminPostUserEdit(UsersRequest $request,$id)
     {
+        $request['password']=bcrypt($request['password']);
         User::findOrFail($id)->update($request->all());
         return redirect(route('userlist'));
     }

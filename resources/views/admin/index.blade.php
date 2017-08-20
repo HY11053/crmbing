@@ -10,7 +10,7 @@
                 <span class="info-box-icon bg-aqua"><i class="ion ion-clipboard"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">模板总数</span>
+                    <span class="info-box-text">今日订单完成数</span>
                     <span class="info-box-number">0</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -23,7 +23,7 @@
                 <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">前台会员数</span>
+                    <span class="info-box-text">今日数据录入数</span>
                     <span class="info-box-number">1</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -40,7 +40,7 @@
                 <span class="info-box-icon bg-green"><i class="ion ion-bonfire"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">品牌总数</span>
+                    <span class="info-box-text">客服已接单数</span>
                     <span class="info-box-number">0</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -53,7 +53,7 @@
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-pulse"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">品牌已添加</span>
+                    <span class="info-box-text">未接单数量</span>
                     <span class="info-box-number">0%</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -99,44 +99,18 @@
                         <!-- /.col -->
                         <div class="col-md-4">
                             <p class="text-center">
-                                <strong>品牌添加完成比</strong>
+                                <strong>客服回访完成比</strong>
                             </p>
-
+                            @foreach(\App\User::where('groupid',1)->get() as $user)
                             <div class="progress-group">
-                                <span class="progress-text">零食店品牌</span>
+                                <span class="progress-text">{{$user->name}}</span>
                                 <span class="progress-number"><b>0</b>/0</span>
 
                                 <div class="progress sm">
-                                    <div class="progress-bar progress-bar-aqua" style="width:  0% "></div>
+                                    <div class="progress-bar progress-bar-aqua" style="width:  {{rand(1,100)}}% "></div>
                                 </div>
                             </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">炒货店品牌</span>
-                                <span class="progress-number">0</b>/0</span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-red" style="width:  0% "></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">干果店品牌</span>
-                                <span class="progress-number"><b>0</b>/0</span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-green" style="width:  0% "></div>
-                                </div>
-                            </div>
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                                <span class="progress-text">进口零食品牌</span>
-                                <span class="progress-number"><b>0</b>/0 </span>
-
-                                <div class="progress sm">
-                                    <div class="progress-bar progress-bar-yellow" style="width:  0%  "></div>
-                                </div>
-                            </div>
+                       @endforeach
                             <!-- /.progress-group -->
                         </div>
                         <!-- /.col -->
@@ -189,6 +163,125 @@
             <!-- /.box -->
         </div>
         <!-- /.col -->
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">推广渠道分析</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="chart-responsive">
+                            <canvas id="pieChart" height="160" width="328" style="width: 328px; height: 160px;"></canvas>
+                        </div>
+                        <!-- ./chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
+                        <ul class="chart-legend clearfix">
+                            <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
+                            <li><i class="fa fa-circle-o text-green"></i> IE</li>
+                            <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
+                            <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
+                            <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
+                            <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
+                        </ul>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#">United States of America
+                            <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
+                    <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a>
+                    </li>
+                    <li><a href="#">China
+                            <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
+                </ul>
+            </div>
+            <!-- /.footer -->
+        </div>
+    </div>
+        <div class="col-md-6">
+            <!-- USERS LIST -->
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">电话客服排行榜</h3>
+
+                    <div class="box-tools pull-right">
+                        <span class="label label-danger">8 New Members</span>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <ul class="users-list clearfix">
+                        <li>
+                            <img src="/adminlte/dist/img/user1-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Alexander Pierce</a>
+                            <span class="users-list-date">Today</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user8-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Norman</a>
+                            <span class="users-list-date">Yesterday</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user7-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Jane</a>
+                            <span class="users-list-date">12 Jan</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user6-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">John</a>
+                            <span class="users-list-date">12 Jan</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user2-160x160.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Alexander</a>
+                            <span class="users-list-date">13 Jan</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user5-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Sarah</a>
+                            <span class="users-list-date">14 Jan</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user4-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Nora</a>
+                            <span class="users-list-date">15 Jan</span>
+                        </li>
+                        <li>
+                            <img src="/adminlte/dist/img/user3-128x128.jpg" alt="User Image">
+                            <a class="users-list-name" href="#">Nadia</a>
+                            <span class="users-list-date">15 Jan</span>
+                        </li>
+                    </ul>
+                    <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+            <!--/.box -->
+        </div>
     </div>
     <!-- /.row -->
     <!-- Main row -->
@@ -266,28 +359,27 @@
             var salesChart = new Chart(salesChartCanvas);
 
             var salesChartData = {
-                labels: ["品牌介绍", "加盟流程", "加盟条件", "加盟支持", "选址技巧", "经营技巧", "开店成本", "利润分析", "品牌评论", "加盟案例"],
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [
-
                     {
-                        label: "加盟流程",
+                        label: "Electronics",
+                        fillColor: "rgb(210, 214, 222)",
+                        strokeColor: "rgb(210, 214, 222)",
+                        pointColor: "rgb(210, 214, 222)",
+                        pointStrokeColor: "#c1c7d1",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgb(220,220,220)",
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        label: "Digital Goods",
                         fillColor: "rgba(60,141,188,0.9)",
                         strokeColor: "rgba(60,141,188,0.8)",
                         pointColor: "#3b8bba",
                         pointStrokeColor: "rgba(60,141,188,1)",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(60,141,188,1)",
-                        data: [{{\App\Admin\Article::where('type','ppjs')->count()}},
-                            {{\App\Admin\Article::where('type','jmlc')->count()}},
-                            {{\App\Admin\Article::where('type','jmtj')->count()}},
-                            {{\App\Admin\Article::where('type','jmzc')->count()}},
-                            {{\App\Admin\Article::where('type','xzjq')->count()}},
-                            {{\App\Admin\Article::where('type','jyjq')->count()}},
-                            {{\App\Admin\Article::where('type','tzfx')->count()}},
-                            {{\App\Admin\Article::where('type','lrfx')->count()}},
-                            {{\App\Admin\Article::where('type','comment')->count()}},
-                            {{\App\Admin\Article::where('type','anli')->count()}},
-                            {{\App\Admin\Article::where('type','anli')->count()}}]
+                        data: [28, 48, 40, 19, 86, 27, 90]
                     }
                 ]
             };

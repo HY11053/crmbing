@@ -143,7 +143,7 @@
                 <li class="header">常用核心功能模块</li>
                 <li class=" treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>客户管理</span>
+                        <i class="fa fa-user-circle-o"></i> <span>客户管理</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -151,7 +151,7 @@
                     <ul class="treeview-menu">
                         <li @if(Request::getRequestUri()=='/data/add') class="active" @endif><a href="/data/add"><i class="fa fa-circle-o"></i> 数据录入</a></li>
                         <li @if(Request::getRequestUri()=='/data/view') class="active" @endif><a href="/data/view"><i class="fa fa-circle-o"></i> 数据浏览</a></li>
-                        <li @if(Request::getRequestUri()=='/data/unclaimed') class="active" @endif><a href="/data/unclaimed"><i class="fa fa-circle-o"></i> 客服接待</a></li>
+                        <li @if(Request::getRequestUri()=='/data/unclaimed') class="active" @endif><a href="/data/unclaimed"><i class="fa fa-circle-o"></i> 客服接待中心</a></li>
                         <li @if(Request::getRequestUri()=='/data/customerservice') class="active" @endif><a href="/data/customerservice"><i class="fa fa-circle-o"></i> 已接待客户</a></li>
                         <li @if(Request::getRequestUri()=='/data/customervisit') class="active" @endif><a href="/data/customervisit"><i class="fa fa-circle-o"></i> 门店接待中心</a></li>
                         <li @if(Request::getRequestUri()=='/data/jmzc') class="active" @endif><a href="/data/jmzc"><i class="fa fa-circle-o"></i> 门市顾问</a></li>
@@ -160,8 +160,8 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-files-o"></i>
-                        <span>系统杂项设置</span>
+                        <i class="fa fa-dropbox"></i>
+                        <span>推广渠道</span>
                         <span class="pull-right-container">
               <span class="label label-primary pull-right">6</span>
             </span>
@@ -177,7 +177,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-th"></i> <span>用户管理中心</span>
+                        <i class="fa fa-user-secret"></i> <span>用户管理中心</span>
                         <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span>

@@ -24,10 +24,6 @@ class Customer extends Model
         return Carbon::parse($date)->diffForHumans();
     }
 
-    public function getVisitAtAttribute($date)
-    {
-        return Carbon::parse($date)->diffForHumans();
-    }
 
     public function setVisitAtAttribute($date)
     {

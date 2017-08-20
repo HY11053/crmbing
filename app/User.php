@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     protected function group()
     {
-        return $this->belongsTo('App\Admin\UserGroup','id');
+        return $this->belongsTo('App\Admin\UserGroup','groupid');
     }
 
 }

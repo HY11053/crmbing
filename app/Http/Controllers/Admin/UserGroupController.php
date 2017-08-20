@@ -29,5 +29,6 @@ class UserGroupController extends Controller
     public function postGroupCreate(Request $request)
     {
         UserGroup::create($request->all());
+        return redirect(route('grouplist'));
     }
 }

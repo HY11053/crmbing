@@ -23,7 +23,7 @@
                             <th>客服信息</th>
                             <th>来店时间</th>
                             <th>门店状态</th>
-                            <th >操作</th>
+                            <th>接待员</th>
                         </tr>
                         @foreach($customerVisits as $customerVisit)
                             <tr>
@@ -32,14 +32,19 @@
                                 <td>{{$customerVisit->gender}}</td>
                                 <td>{{$customerVisit->wechat}}</td>
                                 <td>{{$customerVisit->phone}}</td>
-                                <td>{{$customerVisit->packages->sections}}</td>
+                                <td>{{$customerVisit->package}}</td>
                                 <td>{{$customerVisit->payment}}</td>
                                 <td>{{$customerVisit->notes}}</td>
                                 <td>{{$customerVisit->operate}}--{{$customerVisit->status}}</td>
                                 <td>{{$customerVisit->visit_at}}</td>
-                                <td>{{$customerVisit->storestatus}}</td>
-
-                                <td><span class="badge bg-green"><a href="/data/edit/{{$customerVisit->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> </td>
+                                <td>
+                                    @if($customerVisit->storestatus=='已接待')
+                                        <span class="badge bg-green" style=" font-weight: normal;">已接待</span>
+                                    @else
+                                        <span class="badge bg-red" style="cursor: pointer; font-weight: normal;" id="status{{$customerVisit->id}}" onclick="storeStatusChick('status{{$customerVisit->id}}',{{$customerVisit->id}})">{{$customerVisit->storestatus}}</span>
+                                    @endif
+                                </td>
+                                <td id="receptionist{{$customerVisit->id}}"> {{$customerVisit->receptionist}}</td>
                             </tr>
                         @endforeach
                     </table>
@@ -59,8 +64,6 @@
 
 
 @section('flibs')
-    <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -70,32 +73,25 @@
             });
 
         })
-
-    </script>
-
-    <script>
-        $(function () {
-            $('#datepicker').datepicker({
-                autoclose: true
+        function storeStatusChick(element,id) {
+            $.ajax({
+                //提交数据的类型 POST GET
+                type:"POST",
+                //提交的网址
+                url:"/unreception/status/"+id,
+                //提交的数据
+                data:{"id":id},
+                //返回数据的格式
+                datatype: "html",    //"xml", "html", "script", "json", "jsonp", "text".
+                success:function (response, stutas, xhr) {
+                    //$(".modal-s-m"+id+" .modal-body").html(response);
+                    console.log(response)
+                    $('#'+element).text(response[0]);
+                    $('#receptionist'+id).text(response[1]);
+                    $('#'+element).removeClass( "bg-red" );
+                    $('#'+element).addClass( "bg-green" );
+                }
             });
-
-            //iCheck for checkbox and radio inputs
-            $('.basic_info input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-            //Red color scheme for iCheck
-            $('.basic_info input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                checkboxClass: 'icheckbox_minimal-red',
-                radioClass: 'iradio_minimal-red'
-            });
-            //Flat red color scheme for iCheck
-            $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-
-        });
+        }
     </script>
 @stop

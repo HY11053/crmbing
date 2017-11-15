@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::post('/unclaimed/status/{id}', 'DataControlController@dataUnclaimedStatus')->middleware('service');
     Route::get('data/customerservice', 'DataControlController@Customerservice')->name('customerservice')->middleware('service');
     Route::get('data/customervisit', 'DataControlController@CustomerVisit')->name('customervisit')->middleware('store');
+    Route::get('/data/customervisit/own', 'DataControlController@CustomerVisitOwn')->name('customervisitown')->middleware('store');
+    Route::post('/unreception/status/{id}', 'DataControlController@dataReceptionStatus')->middleware('store');
     Route::get('/sysconf/refereradd', 'SysconfControlController@refererAdd');
     Route::post('/sysconf/refereradd', 'SysconfControlController@postRefererAdd')->name('refereradd');
     Route::get('/sysconf/refereraddlist', 'SysconfControlController@refererList')->name('refererlist');
@@ -46,5 +48,7 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('user/group','UserGroupController@groupLists')->name('grouplist');
     Route::get('/user/groupcreate','UserGroupController@groupCreate');
     Route::post('/user/groupcreate','UserGroupController@postGroupCreate');
+    Route::get('/usergroup/edit/{id}','UserGroupController@groupEdit');
+    Route::put('/usergroup/edit/{id}','UserGroupController@postGroupEdit')->name('groupedit');
 
 });

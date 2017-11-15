@@ -160,7 +160,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item"><i class="fa fa-blind" style="padding-right: 5px;"></i>{{$thiscunstomdata->created_at}}---{{$thiscunstomdata->inputer}}录入数据</li>
                                 @foreach($thiscunstomdata->Cnotes as $cnote)
-                                    <li class="list-group-item"><i class="fa fa-blind" style="padding-right: 5px;"></i>{{$thiscunstomdata->created_at}}{{$cnote->notes}}</li>
+                                    <li class="list-group-item"><i class="fa fa-blind" style="padding-right: 5px;"></i>{{$cnote->created_at}}{{$cnote->notes}}</li>
                                     @endforeach
                             </ul>
                         </div>

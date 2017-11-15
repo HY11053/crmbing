@@ -149,13 +149,13 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Request::getRequestUri()=='/data/add') class="active" @endif><a href="/data/add"><i class="fa fa-circle-o"></i> 数据录入</a></li>
-                        <li @if(Request::getRequestUri()=='/data/view') class="active" @endif><a href="/data/view"><i class="fa fa-circle-o"></i> 数据浏览</a></li>
+                        <li @if(Request::getRequestUri()=='/data/add') class="active" @endif><a href="/data/add"><i class="fa fa-circle-o"></i> 客户数据录入</a></li>
+                        <li @if(Request::getRequestUri()=='/data/view') class="active" @endif><a href="/data/view"><i class="fa fa-circle-o"></i> 客户数据浏览</a></li>
                         <li @if(Request::getRequestUri()=='/data/unclaimed') class="active" @endif><a href="/data/unclaimed"><i class="fa fa-circle-o"></i> 客服接待中心</a></li>
-                        <li @if(Request::getRequestUri()=='/data/customerservice') class="active" @endif><a href="/data/customerservice"><i class="fa fa-circle-o"></i> 已接待客户</a></li>
+                        <li @if(Request::getRequestUri()=='/data/customerservice') class="active" @endif><a href="/data/customerservice"><i class="fa fa-circle-o"></i> 已接待的客户</a></li>
                         <li @if(Request::getRequestUri()=='/data/customervisit') class="active" @endif><a href="/data/customervisit"><i class="fa fa-circle-o"></i> 门店接待中心</a></li>
-                        <li @if(Request::getRequestUri()=='/data/jmzc') class="active" @endif><a href="/data/jmzc"><i class="fa fa-circle-o"></i> 门市顾问</a></li>
-                        <li @if(Request::getRequestUri()=='/data/xzjq') class="active" @endif><a href="/data/xzjq"><i class="fa fa-circle-o"></i> 合同管理</a></li>
+                        <li @if(Request::getRequestUri()=='/data/customervisit/own') class="active" @endif><a href="/data/customervisit/own"><i class="fa fa-circle-o"></i> 门店客户对接</a></li>
+                        <li @if(Request::getRequestUri()=='/data/xzjq') class="active" @endif><a href="/data/xzjq"><i class="fa fa-circle-o"></i> 客户合同管理</a></li>
                      </ul>
                 </li>
                 <li class="treeview">
@@ -183,9 +183,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Request::getRequestUri()=='/user/list') class="active" @endif><a href="/user/list"><i class="fa fa-circle-o"></i>前台会员列表</a></li>
-                        <li @if(Request::getRequestUri()=='/user/group') class="active" @endif><a href="/user/group"><i class="fa fa-circle-o"></i>会员组管理</a></li>
-                        <li @if(Request::getRequestUri()=='/user/groupcreate') class="active" @endif><a href="/user/groupcreate"><i class="fa fa-circle-o"></i>会员组添加</a></li>
+                        <li @if(Request::getRequestUri()=='/user/list') class="active" @endif><a href="/user/list"><i class="fa fa-circle-o"></i>部门人员列表</a></li>
+                        <li @if(Request::getRequestUri()=='/user/group') class="active" @endif><a href="/user/group"><i class="fa fa-circle-o"></i>部门分组管理</a></li>
+                        <li @if(Request::getRequestUri()=='/user/groupcreate') class="active" @endif><a href="/user/groupcreate"><i class="fa fa-circle-o"></i>部门分组添加</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

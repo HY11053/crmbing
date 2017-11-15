@@ -14,24 +14,26 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('referer')->nullable();
-            $table->string('wechat')->nullable();
-            $table->string('phone',20)->unique();
-            $table->string('package')->nullable();
-            $table->string('notes')->nullable();
-            $table->string('operate')->nullable();
-            $table->string('drainreason')->nullable();
-            $table->string('inputer')->nullable();
-            $table->string('advertisement')->nullable();
-            $table->integer('payment')->nullable();
-            $table->timestamp('allocated_at')->nullable();
-            $table->timestamp('visit_at')->nullable();
-            $table->string('status')->default('未分配');
-            $table->string('storestatus')->default('未接待');
-            $table->string('dealstatus')->nullable();
+            $table->increments('id');//id
+            $table->string('name')->nullable(); //姓名
+            $table->string('gender')->nullable(); //性别
+            $table->string('referer')->nullable(); //信息来源
+            $table->string('wechat')->nullable();//微信
+            $table->string('phone',20)->unique();//手机
+            $table->string('package')->nullable();//套餐类型
+            $table->string('advertisement')->nullable();//广告来源
+            $table->string('notes')->nullable();//客户备注信息
+            $table->string('status')->default('未分配');//客户分配状态
+            $table->string('storestatus')->default('未接待');//客户接待状态
+            $table->timestamp('allocated_at')->nullable();//电话客服领取时间
+            $table->timestamp('reception_at')->nullable();//门店客服领取客户时间
+            $table->timestamp('visit_at')->nullable();//客户来店时间
+            $table->string('inputer')->nullable();//信息录入者
+            $table->string('operate')->nullable();//电话客服接待者
+            $table->string('receptionist')->nullable();//门店客服接待者
+            $table->string('dealstatus')->nullable();//订单状态
+            $table->integer('payment')->nullable();//已交金额
+            $table->string('drainreason')->nullable();//退单原因
             $table->timestamps();
         });
     }

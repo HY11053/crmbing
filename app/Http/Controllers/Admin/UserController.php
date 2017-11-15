@@ -60,6 +60,7 @@ class UserController extends Controller
      */
     public function adminPostUserEdit(UsersRequest $request,$id)
     {
+        
         $request['password']=bcrypt($request['password']);
         User::findOrFail($id)->update($request->all());
         return redirect(route('userlist'));

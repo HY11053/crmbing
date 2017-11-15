@@ -32,8 +32,8 @@
                                 <td>{{$dataUnclaimed->name}}</td>
                                 <td>{{$dataUnclaimed->gender}}</td>
                                 <td>{{$dataUnclaimed->referer}}</td>
-                                <td>{{$dataUnclaimed->wechat}}</td>
-                                <td>{{$dataUnclaimed->phone}}</td>
+                                <td>{{str_replace(substr($dataUnclaimed->wechat,1,4),'****',$dataUnclaimed->wechat)}}</td>
+                                <td>{{str_replace(substr($dataUnclaimed->phone,5,4),'****',$dataUnclaimed->phone)}}</td>
                                 <td>{{$dataUnclaimed->package}}</td>
                                 <td>{{$dataUnclaimed->notes}}</td>
                                 <td>{{$dataUnclaimed->inputer}}</td>

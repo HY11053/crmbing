@@ -21,7 +21,7 @@ class DataControlController extends Controller
      */
     public function dataView()
     {
-        $cunstomdatas=Customer::orderBy('id','desc')->paginate(50);
+        $cunstomdatas=Customer::orderBy('id','desc')->Inputer()->paginate(50);
         return view('admin.dataview',compact('cunstomdatas'));
     }
     /**
@@ -43,6 +43,7 @@ class DataControlController extends Controller
      */
     public function postDataAddition(Request $request)
     {
+        Customer::where('phone',$request->input('phone'))->value('id')?exit('号码已存在'):'';
         $request['referer']=Referer::where('id',$request['referer'])->value('sections');
         $request['package']=Packagetype::where('id',$request['package'])->value('sections');
         $request['inputer']=User::where('id',Auth::id())->value('name');
@@ -146,8 +147,37 @@ class DataControlController extends Controller
      */
     public function CustomerVisit()
     {
-        $customerVisits=Customer::where('visit_at','>',Carbon::now())->paginate(50);
+        $customerVisits=Customer::where('visit_at','>',Carbon::now())->where('operate','<>',null)->where('receptionist',null)->paginate(50);
         return view('admin.datavisit',compact('customerVisits'));
 
+    }
+
+    /**
+     * 门店客户领取
+     * @param Request $request
+     * @return array
+     */
+    public function dataReceptionStatus(Request $request)
+    {
+        $status='已接待';
+        $receptionistUser=User::where('id',Auth::id())->value('name');
+        if(empty(Customer::where('id',$request['id'])->value('receptionist')))
+        {
+            $request['reception_at']=Carbon::now();
+            $request['notes']=User::where('id',Auth::id())->value('name').'领取接待';
+            Customnote::create(['cid'=>$request['id'],'notes'=>$request['notes']]);
+            Customer::where('id',$request->input('id'))->update(['storestatus'=>$status,'receptionist'=>$receptionistUser,'reception_at'=>$request['reception_at']]);
+        }else{
+            $status=Customer::where('id',$request['id'])->value('receptionist').'已接待';
+            $receptionistUser=Customer::where('id',$request->input('id'))->value('receptionist');
+        }
+
+        return [$status,$receptionistUser];
+    }
+
+    public function CustomerVisitOwn()
+    {
+        $customerVisits=Customer::where('visit_at','>',Carbon::now())->where('operate','<>',null)->where('receptionist',User::where('id',Auth::id())->value('name'))->paginate(50);
+        return view('admin.datavisit',compact('customerVisits'));
     }
 }

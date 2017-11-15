@@ -2,8 +2,10 @@
 
 namespace App\Admin;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Customer extends Model
 {
@@ -40,5 +42,13 @@ class Customer extends Model
     protected function packages()
     {
         return $this->belongsTo('App\Admin\Packagetype','package','id');
+    }
+
+    public function scopeInputer($query)
+    {
+        if(Auth::id()!=1)
+        {
+            $query->where('inputer','=',User::where('id',Auth::id())->value('name'));
+        }
     }
 }

@@ -16,11 +16,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
-    Route::get('/home', 'AdminController@index')->name('home');
+    Route::get('admin/index', 'AdminController@index')->name('home');
     Route::get('/data/view', 'DataControlController@dataView')->name('dataview')->middleware('inputer');
     Route::get('/data/add', 'DataControlController@dataAddition')->name('dataimport')->middleware('inputer');
     Route::post('data/add', 'DataControlController@postDataAddition')->name('postdata')->middleware('inputer');

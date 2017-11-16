@@ -18,7 +18,6 @@
             font-size: 12px;
         }
     </style>
-    @yield('headlibs')
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -30,7 +29,7 @@
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="/home" class="logo">
+        <a href="/admin/index" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>Y</b>SG</span>
             <!-- logo for regular state and mobile devices -->

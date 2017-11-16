@@ -77,7 +77,9 @@ class DataControlController extends Controller
         {
             $notes=User::where('id',Auth::id())->value('name').'将信息【'.Customer::where('id',$id)->value('notes').'】修改为'.$request['notes'];
             Customnote::create(['cid'=>$id,'notes'=>$notes]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
         }
+
         Customer::findOrfail($id)->update($request->all());
         return redirect(route('customerservice'));
     }
@@ -178,6 +180,6 @@ class DataControlController extends Controller
     public function CustomerVisitOwn()
     {
         $customerVisits=Customer::where('visit_at','>',Carbon::now())->where('operate','<>',null)->where('receptionist',User::where('id',Auth::id())->value('name'))->paginate(50);
-        return view('admin.datavisit',compact('customerVisits'));
+        return view('admin.datavisitown',compact('customerVisits'));
     }
 }

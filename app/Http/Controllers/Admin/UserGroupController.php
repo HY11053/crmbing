@@ -35,12 +35,21 @@ class UserGroupController extends Controller
         UserGroup::create($request->all());
         return redirect(route('grouplist'));
     }
+
+    /**组编辑
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function groupEdit(Request $request)
     {
         $thisGroupInfo=UserGroup::findOrFail($request->id);
         return view('admin.groupedit',compact('thisGroupInfo'));
     }
 
+    /**组编辑处理
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postGroupEdit(Request $request)
     {
         UserGroup::findOrfail($request->id)->update($request->all());

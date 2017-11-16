@@ -21,7 +21,7 @@
                             <tr>
                                 <td>{{$group->id}}.</td>
                                 <td>{{$group->groupname}}</td>
-                                <td>{{$group->grouptype}}</td>
+                                <td>@if($group->grouptype==1) 数据录入 @elseif($group->grouptype==2) 电话客服 @else 门店客服 @endif</td>
                                 <td>{{$group->user->count()}}</td>
                                 <td style="text-align: center;">
                                     <a href="/usergroup/edit/{{$group->id}}"><span class="label label-success" style="font-weight: normal">编辑</span></a>

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Customer extends Model
 {
-    protected $fillable=['name','gender','referer','wechat','phone','package','notes','operate','drainreason','inputer','advertisement','status','allocated_at','visit_at','payment','follownum'];
+    protected $fillable=['name','gender','referer','wechat','phone','package','notes','operate','drainreason','inputer','advertisement',
+        'status','allocated_at','visit_at','payment','follownum','storestatus','dealstatus','reception_at','receptionist'];
     public function getCreatedAtAttribute($date)
     {
 

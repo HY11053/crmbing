@@ -11,7 +11,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">今日订单完成数</span>
-                    <span class="info-box-number">0</span>
+                    <span class="info-box-number">{{\App\Admin\Customer::where('dealstatus',1)->where('updated_at','>',Carbon\Carbon::today())->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -24,7 +24,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">今日数据录入数</span>
-                    <span class="info-box-number">1</span>
+                    <span class="info-box-number">{{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today())->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -41,7 +41,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">客服已接单数</span>
-                    <span class="info-box-number">0</span>
+                    <span class="info-box-number">{{\App\Admin\Customer::where('allocated_at','>',Carbon\Carbon::today())->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -54,7 +54,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">未接单数量</span>
-                    <span class="info-box-number">0%</span>
+                    <span class="info-box-number">{{\App\Admin\Customer::where('status','未分配')->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -68,7 +68,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">模板片段数据</h3><span style="margin-left: 5px; display: inline-block;"><i class="ion ion-bonfire text-red"></i>今日模板添加数：0</span><span style=" margin-left: 5px;isplay: inline-block;"><i class="ion ion-ios-pulse text-red"></i>今日品牌添加数：0</span>
+                    <h3 class="box-title">近两周新增数据</h3><span style="margin-left: 5px; display: inline-block;"><i class="ion ion-bonfire text-red"></i>今日数据新增数：{{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today())->count()}}</span><span style=" margin-left: 5px;isplay: inline-block;"><i class="ion ion-ios-pulse text-red"></i>今日客服接单数：{{\App\Admin\Customer::where('allocated_at','>',Carbon\Carbon::today())->count()}}</span>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -87,7 +87,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <p class="text-center">
-                                <strong>截止当前: 2017-08-15 10:26:th模板片段数据</strong>
+                                <strong>截止当前: {{\Carbon\Carbon::now()}}:近两周新增数据</strong>
                             </p>
 
                             <div class="chart">
@@ -101,13 +101,23 @@
                             <p class="text-center">
                                 <strong>客服回访完成比</strong>
                             </p>
-                            @foreach(\App\User::where('groupid',1)->get() as $user)
+                            @foreach(\App\User::where('groupid',2)->take(4)->get() as $user)
                             <div class="progress-group">
                                 <span class="progress-text">{{$user->name}}</span>
-                                <span class="progress-number"><b>0</b>/0</span>
+                                <span class="progress-number"><b>{{\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count()}}</b>/{{\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()}}</span>
 
                                 <div class="progress sm">
-                                    <div class="progress-bar progress-bar-aqua" style="width:  {{rand(1,100)}}% "></div>
+                                    @if(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())
+                                        @if(sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100>=80)
+                                        <div class="progress-bar progress-bar-success" style="width: {{sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100}}%"></div>
+                                        @elseif((sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100>=60 && sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100<80))
+                                            <div class="progress-bar progress-bar-warning" style="width: {{sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100}}%"></div>
+                                        @elseif((sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100<60))
+                                            <div class="progress-bar progress-bar-red" style="width: {{sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100}}%"></div>
+                                        @endif
+                                        @else
+                                        <div class="progress-bar progress-bar-aqua" style="width: 0%"></div>
+                                    @endif
                                 </div>
                             </div>
                        @endforeach
@@ -124,7 +134,7 @@
                             <div class="description-block border-right">
                                 <span class="description-percentage text-green"><i class="fa fa-caret-up"></i>  0%  </span>
                                 <h5 class="description-header">0</h5>
-                                <span class="description-text">零食品牌</span>
+                                <span class="description-text">微信</span>
                             </div>
                             <!-- /.description-block -->
                         </div>
@@ -133,7 +143,7 @@
                             <div class="description-block border-right">
                                 <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i>  0% </span>
                                 <h5 class="description-header">0</h5>
-                                <span class="description-text">干果品牌</span>
+                                <span class="description-text">今日头条</span>
                             </div>
                             <!-- /.description-block -->
                         </div>
@@ -142,7 +152,7 @@
                             <div class="description-block border-right">
                                 <span class="description-percentage text-green"><i class="fa fa-caret-up"></i>  0% </span>
                                 <h5 class="description-header">0</h5>
-                                <span class="description-text">炒货品牌</span>
+                                <span class="description-text">腾讯智慧推</span>
                             </div>
                             <!-- /.description-block -->
                         </div>
@@ -151,7 +161,7 @@
                             <div class="description-block">
                                 <span class="description-percentage text-red"><i class="fa fa-caret-down"></i>  0% </span>
                                 <h5 class="description-header">0</h5>
-                                <span class="description-text">进口零食品牌</span>
+                                <span class="description-text">搜狐汇算</span>
                             </div>
                             <!-- /.description-block -->
                         </div>
@@ -188,12 +198,11 @@
                     <!-- /.col -->
                     <div class="col-md-4">
                         <ul class="chart-legend clearfix">
-                            <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-                            <li><i class="fa fa-circle-o text-green"></i> IE</li>
-                            <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-                            <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-                            <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-                            <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
+                            @foreach($advertisementsInfos as $index=>$advertisementsInfo)
+                                @if($i<6)
+                                    <li><i class="fa fa-circle-o {{$colors[$i++]}}"></i> {{\App\Admin\Advertisement::where('id',$index)->value('sections')}}</li>
+                                @endif
+                            @endforeach
                         </ul>
                     </div>
                     <!-- /.col -->
@@ -203,12 +212,17 @@
             <!-- /.box-body -->
             <div class="box-footer no-padding">
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">United States of America
-                            <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-                    <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a>
-                    </li>
-                    <li><a href="#">China
-                            <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
+                    @foreach($advertisementsInfos as $index=>$advertisementsInfo)
+                    <li><a href="#">{{\App\Admin\Advertisement::where('id',$index)->value('sections')}}
+                                    @if(\App\Admin\Customer::where('advertisement',$index)->where('created_at','>',\Carbon\Carbon::today())->count() < \App\Admin\Customer::where('advertisement',$index)->where('created_at','>',\Carbon\Carbon::yesterday())->where('created_at','<',\Carbon\Carbon::today())->count())
+                                        <span class="pull-right text-red"><i class="fa fa-angle-down"></i>
+                                     @elseif(\App\Admin\Customer::where('advertisement',$index)->where('created_at','>',\Carbon\Carbon::today())->count() == \App\Admin\Customer::where('advertisement',$index)->where('created_at','>',\Carbon\Carbon::yesterday())->where('created_at','<',\Carbon\Carbon::today())->count())
+                                        <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i>
+                                    @else
+                                        <span class="pull-right text-green"><i class="fa fa-angle-up"></i>
+                                    @endif
+                                            @if((\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today())->count())) {{sprintf("%.4f",(\App\Admin\Customer::where('advertisement',$index)->where('created_at','>',\Carbon\Carbon::today())->count())/(\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today())->count()),0,-1)*100}} @else 0 @endif% </span></a></li>
+                    @endforeach
                 </ul>
             </div>
             <!-- /.footer -->
@@ -221,7 +235,6 @@
                     <h3 class="box-title">电话客服排行榜</h3>
 
                     <div class="box-tools pull-right">
-                        <span class="label label-danger">8 New Members</span>
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
@@ -231,46 +244,13 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                     <ul class="users-list clearfix">
+                        @foreach($topOperateusers as $index=>$topOperateuser)
                         <li>
-                            <img src="/adminlte/dist/img/user1-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Alexander Pierce</a>
-                            <span class="users-list-date">Today</span>
+                            <img src="/adminlte/dist/img/user1-128x128.jpg" alt="{{\App\User::where('name',$index)->value('name')}}">
+                            <a class="users-list-name" href="#">{{\App\User::where('name',$index)->value('name')}}</a>
+                            <span class="users-list-date">{{$topOperateuser}}</span>
                         </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user8-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Norman</a>
-                            <span class="users-list-date">Yesterday</span>
-                        </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user7-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Jane</a>
-                            <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user6-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">John</a>
-                            <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user2-160x160.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Alexander</a>
-                            <span class="users-list-date">13 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user5-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Sarah</a>
-                            <span class="users-list-date">14 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user4-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Nora</a>
-                            <span class="users-list-date">15 Jan</span>
-                        </li>
-                        <li>
-                            <img src="/adminlte/dist/img/user3-128x128.jpg" alt="User Image">
-                            <a class="users-list-name" href="#">Nadia</a>
-                            <span class="users-list-date">15 Jan</span>
-                        </li>
+                       @endforeach
                     </ul>
                     <!-- /.users-list -->
                 </div>
@@ -337,8 +317,6 @@
     <script src="/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- ChartJS 1.0.1 -->
     <script src="/adminlte/plugins/chartjs/Chart.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <!-- AdminLTE for demo purposes -->
     <script>
         $(function () {
 
@@ -359,27 +337,55 @@
             var salesChart = new Chart(salesChartCanvas);
 
             var salesChartData = {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [
+                    "星期{{\Carbon\Carbon::parse(date('Y-m-d H:i:s',strtotime(\Carbon\Carbon::now())-3600*24*7))->dayOfWeek?:'日'}}",
+                    "星期{{\Carbon\Carbon::parse(date('Y-m-d H:i:s',strtotime(\Carbon\Carbon::now())-3600*24*6))->dayOfWeek?:'日'}}",
+                    "星期{{\Carbon\Carbon::parse(date('Y-m-d H:i:s',strtotime(\Carbon\Carbon::now())-3600*24*5))->dayOfWeek?:'日'}}",
+                    "星期{{\Carbon\Carbon::parse(date('Y-m-d H:i:s',strtotime(\Carbon\Carbon::now())-3600*24*4))->dayOfWeek?:'日'}}",
+                    "星期{{\Carbon\Carbon::parse(date('Y-m-d H:i:s',strtotime(\Carbon\Carbon::now())-3600*24*3))->dayOfWeek?:'日'}}",
+                    "星期{{\Carbon\Carbon::parse(date('Y-m-d H:i:s',strtotime(\Carbon\Carbon::now())-3600*24*2))->dayOfWeek?:'日'}}",
+                    "星期{{\Carbon\Carbon::yesterday()->dayOfWeek}}", "星期{{\Carbon\Carbon::now()->dayOfWeek?:'日'}}"
+
+                ],
                 datasets: [
                     {
-                        label: "Electronics",
+                        label: "上一周数据",
                         fillColor: "rgb(210, 214, 222)",
                         strokeColor: "rgb(210, 214, 222)",
                         pointColor: "rgb(210, 214, 222)",
                         pointStrokeColor: "#c1c7d1",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgb(220,220,220)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
+                        data: [
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(14))->where('created_at','<',\Carbon\Carbon::today()->subDays(13))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(13))->where('created_at','<',\Carbon\Carbon::today()->subDays(12))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(12))->where('created_at','<',\Carbon\Carbon::today()->subDays(11))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(11))->where('created_at','<',\Carbon\Carbon::today()->subDays(10))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(10))->where('created_at','<',\Carbon\Carbon::today()->subDays(9))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(9))->where('created_at','<',\Carbon\Carbon::today()->subDays(8))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(8))->where('created_at','<',\Carbon\Carbon::today()->subDays(7))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(7))->where('created_at','<',\Carbon\Carbon::today()->subDays(6))->count()}},
+
+                        ]
                     },
                     {
-                        label: "Digital Goods",
+                        label: "近一周数据",
                         fillColor: "rgba(60,141,188,0.9)",
                         strokeColor: "rgba(60,141,188,0.8)",
                         pointColor: "#3b8bba",
                         pointStrokeColor: "rgba(60,141,188,1)",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(60,141,188,1)",
-                        data: [28, 48, 40, 19, 86, 27, 90]
+                        data: [
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(7))->where('created_at','<',\Carbon\Carbon::today()->subDays(6))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(6))->where('created_at','<',\Carbon\Carbon::today()->subDays(5))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(5))->where('created_at','<',\Carbon\Carbon::today()->subDays(4))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(4))->where('created_at','<',\Carbon\Carbon::today()->subDays(3))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(3))->where('created_at','<',\Carbon\Carbon::today()->subDays(2))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today()->subDays(2))->where('created_at','<',\Carbon\Carbon::today()->subDays(1))->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::yesterday())->where('created_at','<',\Carbon\Carbon::today())->count()}},
+                            {{\App\Admin\Customer::where('created_at','>',\Carbon\Carbon::today())->count()}}
+                        ]
                     }
                 ]
             };
@@ -437,42 +443,15 @@
   var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
   var pieChart = new Chart(pieChartCanvas);
   var PieData = [
+    @foreach($advertisementsInfos as $index=>$advertisementsInfo)
     {
-      value: 700,
-      color: "#f56954",
-      highlight: "#f56954",
-      label: "Chrome"
+      value: {{$advertisementsInfo}},
+      color: "{{$colorfuls[$j++]}}",
+      highlight: "{{$colorfuls[$j-1]}}",
+      label: "{{\App\Admin\Advertisement::where('id',$index)->value('sections')}}"
     },
-    {
-      value: 500,
-      color: "#00a65a",
-      highlight: "#00a65a",
-      label: "IE"
-    },
-    {
-      value: 400,
-      color: "#f39c12",
-      highlight: "#f39c12",
-      label: "FireFox"
-    },
-    {
-      value: 600,
-      color: "#00c0ef",
-      highlight: "#00c0ef",
-      label: "Safari"
-    },
-    {
-      value: 300,
-      color: "#3c8dbc",
-      highlight: "#3c8dbc",
-      label: "Opera"
-    },
-    {
-      value: 100,
-      color: "#d2d6de",
-      highlight: "#d2d6de",
-      label: "Navigator"
-    }
+
+    @endforeach
   ];
   var pieOptions = {
     //Boolean - Whether we should show a stroke on each segment
@@ -498,7 +477,7 @@
     //String - A legend template
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
     //String - A tooltip template
-    tooltipTemplate: "<%=value %> <%=label%> users"
+    tooltipTemplate: "<%=value %> <%=label%> 人数"
   };
   //Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.

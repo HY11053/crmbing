@@ -182,6 +182,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li @if(Request::getRequestUri()=='/user/register') class="active" @endif><a href="/user/register"><i class="fa fa-circle-o"></i>部门人员添加</a></li>
                         <li @if(Request::getRequestUri()=='/user/list') class="active" @endif><a href="/user/list"><i class="fa fa-circle-o"></i>部门人员列表</a></li>
                         <li @if(Request::getRequestUri()=='/user/group') class="active" @endif><a href="/user/group"><i class="fa fa-circle-o"></i>部门分组管理</a></li>
                         <li @if(Request::getRequestUri()=='/user/groupcreate') class="active" @endif><a href="/user/groupcreate"><i class="fa fa-circle-o"></i>部门分组添加</a></li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin\Usergroup;
+use App\Helpers\UploadImages;
 use App\Http\Requests\UsersRequest;
 use App\User;
 use Carbon\Carbon;
@@ -22,30 +23,24 @@ class UserController extends Controller
         return view('admin.users',compact('users'));
     }
 
+
+
+
     /**
      * 会员用户编辑
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
-    public function UserEdit($id)
-    {
-        $user=User::where('id',$id)->first();
-        if(User::where('id',Auth::id())->value('type')==0){
-            return '无权限修改';
-        }
-        $groups=Usergroup::pluck('groupname','id');
-        return view('admin.useredit',compact('user','groups'));
-    }
-
-    /**
-     * 高级管理员修改
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
-     */
     public function adminUserEdit($id)
     {
-        if (Auth::id()!=1){
-            return '非法操作';
+        if(Auth::id()!=$id && User::where('id',Auth::id())->value('usertype')>2)
+        {
+            return abort(403);
+        }
+
+        if (User::where('id',Auth::id())->value('groupid') != User::where('id',$id)->value('groupid') && User::where('id',Auth::id())->value('usertype')>1)
+        {
+            abort(403);
         }
         $user=User::where('id',$id)->first();
         $groups=Usergroup::pluck('groupname','id');
@@ -62,6 +57,10 @@ class UserController extends Controller
     {
         
         $request['password']=bcrypt($request['password']);
+        if (isset($request->image))
+        {
+            $request['avatar']=UploadImages::UploadImage($request);
+        }
         User::findOrFail($id)->update($request->all());
         return redirect(route('userlist'));
     }
@@ -70,9 +69,14 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function Delete($id)
+    public function userDelete($id)
     {
-        User::where('id',$id)->delete();
-        return redirect()->back();
+        if (User::where('id',Auth::id())->value('usertype')==1)
+        {
+            User::where('id',$id)->delete();
+            return redirect()->back();
+        }
+        abort(403);
+
     }
 }

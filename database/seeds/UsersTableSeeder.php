@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory('App\User',10)->create([
+            'usertype' => 1,
             'password' => bcrypt('Linux3306')
         ]);
     }

@@ -14,12 +14,15 @@ class AdminController extends Controller
     function Index()
     {
         $operateUsers=User::where('groupid',2)->pluck('name');
+        $topOperateusers=[];
+        $advertisementsInfos=[];
         foreach ($operateUsers as $operateUser)
         {
             $topOperateusers[$operateUser]=Customer::where('operate',$operateUser)->where('follownum','>',0)->where('allocated_at','>',Carbon::today())->count();
 
         }
-        arsort($topOperateusers);
+
+        !empty($topOperateusers)?arsort($topOperateusers):$topOperateusers;
 
         $advertisements=Advertisement::pluck('sections');
         $advertisementid=Advertisement::pluck('id');
@@ -27,7 +30,7 @@ class AdminController extends Controller
         {
             $advertisementsInfos[$advertisement]=Customer::where('advertisement',$advertisement)->where('created_at','>',Carbon::today())->count();
         }
-        arsort($advertisementsInfos);
+        !empty($advertisementsInfos)?arsort($advertisementsInfos):$advertisementsInfos;
         $advertisementsInfos=array_slice($advertisementsInfos,0,6,true);
         $colors=['text-red','text-green','text-yellow','text-aqua','text-light-blue','text-gray'];
         $colorfuls=['#f56954','#00a65a','#f39c12','#00c0ef','#3c8dbc','#d2d6de'];

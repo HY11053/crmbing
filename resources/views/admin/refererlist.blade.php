@@ -24,7 +24,7 @@
                                 <td>{{$refererlist->id}}</td>
                                 <td>{{$refererlist->sections}}</td>
                                 <td>{{$refererlist->created_at}}</td>
-                                <td class="newcolor"><span class="badge bg-green"><a href="/admin/admin/edit/{{$refererlist->id}}">编辑</a></span> <span class="badge bg-red"><a href="/admin/admin/delete/{{$refererlist->id}}">删除</a> </span></td>
+                                <td class="newcolor"><span class="badge bg-green"><a href="/sysconf/refereredit/{{$refererlist->id}}">编辑</a></span> <span class="badge bg-red"><a href="/sysconf/referetelete/{{$refererlist->id}}">删除</a> </span></td>
                             </tr>
                         @endforeach
                     </table>

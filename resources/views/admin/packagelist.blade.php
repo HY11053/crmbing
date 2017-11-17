@@ -24,7 +24,7 @@
                                 <td>{{$packagelist->id}}</td>
                                 <td>{{$packagelist->sections}}</td>
                                 <td>{{$packagelist->created_at}}</td>
-                                <td class="newcolor"><span class="badge bg-green"><a href="/admin/admin/edit/{{$packagelist->id}}">编辑</a></span> <span class="badge bg-red"><a href="/admin/admin/delete/{{$packagelist->id}}">删除</a> </span></td>
+                                <td class="newcolor"><span class="badge bg-green"><a href="/sysconf/packagedit/{{$packagelist->id}}">编辑</a></span> <span class="badge bg-red"><a href="/sysconf/packagedel/{{$packagelist->id}}">删除</a> </span></td>
                             </tr>
                         @endforeach
                     </table>

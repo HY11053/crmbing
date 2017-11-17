@@ -2,24 +2,27 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class CheckAuthRight
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/admin/index');
+
+        if(empty(User::where('id',Auth::id())->value('groupid')) && User::where('id',Auth::id())->value('usertype')>1)
+        {
+            return abort(403);
         }
         return $next($request);
+
     }
 }

@@ -24,7 +24,7 @@
                                 <td>{{$advertisementlist->id}}</td>
                                 <td>{{$advertisementlist->sections}}</td>
                                 <td>{{$advertisementlist->created_at}}</td>
-                                <td class="newcolor"><span class="badge bg-green"><a href="/admin/admin/edit/{{$advertisementlist->id}}">编辑</a></span> <span class="badge bg-red"><a href="/admin/admin/delete/{{$advertisementlist->id}}">删除</a> </span></td>
+                                <td class="newcolor"><span class="badge bg-green"><a href="/sysconf/advertisementedit/{{$advertisementlist->id}}">编辑</a></span> <span class="badge bg-red"><a href="/sysconf/advertisementdelete/{{$advertisementlist->id}}">删除</a> </span></td>
                             </tr>
                         @endforeach
                     </table>

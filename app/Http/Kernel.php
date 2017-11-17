@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckAuthority;
 use App\Http\Middleware\CheckAuthorityInputer;
 use App\Http\Middleware\CheckAuthorityService;
 use App\Http\Middleware\CheckAuthorityStore;
+use App\Http\Middleware\CheckAuthRight;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,5 +64,6 @@ class Kernel extends HttpKernel
         'inputer'=>CheckAuthorityInputer::class,
         'service'=>CheckAuthorityService::class,
         'store'=>CheckAuthorityStore::class,
+        'usercheck'=>CheckAuthRight::class,
     ];
 }

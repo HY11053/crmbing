@@ -39,6 +39,36 @@ class SysconfControlController extends Controller
         return view('admin.refererlist',compact('refererlists'));
     }
 
+    /**信息来源编辑视图
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function refererEdit($id)
+    {
+        $thisReferer=Referer::where('id',$id)->findOrFail($id);
+        return view('admin.referer_edit',compact('thisReferer'));
+    }
+
+    /**信息来源编辑提交数据处理
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postRefererEdit(Request $request)
+    {
+        Referer::findOrFail($request->id)->update($request->all());
+       return redirect(route('refererlist'));
+    }
+
+    /**信息来源删除
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function refererDetele(Request $request)
+    {
+        Referer::findOrFail($request->id)->delete();
+        return redirect(route('refererlist'));
+    }
+
     /**
      * 套餐类型添加视图
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -66,6 +96,37 @@ class SysconfControlController extends Controller
     {
         $packagelists=Packagetype::all();
         return view('admin.packagelist',compact('packagelists'));
+    }
+
+
+    /**套餐类型修改
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function packageEdit($id)
+    {
+        $thisPackage=Packagetype::findOrFail($id);
+        return view('admin.package_edit',compact('thisPackage'));
+    }
+
+    /**套餐类型修改数据提交
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postPackageEdit(Request $request)
+    {
+        Packagetype::findOrFail($request->id)->update($request->all());
+        return redirect(route('packagelist'));
+    }
+
+    /**套餐类型删除
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function packageDelete(Request $request)
+    {
+        Packagetype::findOrFail($request->id)->delete();
+        return redirect(route('packagelist'));
     }
 
     /**
@@ -96,6 +157,35 @@ class SysconfControlController extends Controller
     {
         $advertisementlists=Advertisement::all();
         return view('admin.advertisementlist',compact('advertisementlists'));
+    }
 
+    /**广告类型编辑
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function advertisementEdit($id)
+    {
+        $thisAdvertisement=Advertisement::findOrFail($id);
+        return view('admin.advertisementedit',compact('thisAdvertisement'));
+    }
+
+    /**广告类型编辑提交处理
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postAdvertisementEdit(Request $request)
+    {
+        Advertisement::findOrFail($request->id)->update($request->all());
+        return redirect(route('advertisementlist'));
+    }
+
+    /**广告类型删除
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function advertisementdelete($id)
+    {
+        Advertisement::findOrFail($id)->delete();
+        return redirect(route('advertisementlist'));
     }
 }

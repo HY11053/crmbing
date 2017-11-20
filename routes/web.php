@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/','Auth\LoginController@showLoginForm')->name('login');
 //Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
@@ -63,5 +60,11 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::post('/user/groupcreate','UserGroupController@postGroupCreate');
     Route::get('/usergroup/edit/{id}','UserGroupController@groupEdit');
     Route::put('/usergroup/edit/{id}','UserGroupController@postGroupEdit')->name('groupedit');
+    Route::get('/inputer/index','DataAnalysisController@inputerAnalysis');
+    Route::get('/customerservice/index','DataAnalysisController@customerserviceAnalysis');
+    Route::get('/customervisit/index','DataAnalysisController@customervisitAnalysis');
+    Route::get('/importdatastxt','DataImportController@dataImportText');
+    Route::put('/importdatastxt','DataImportController@putDataImportText')->name('textimport');
+
 
 });

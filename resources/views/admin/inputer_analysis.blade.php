@@ -24,30 +24,28 @@
                             <th>客户状态</th>
                             <th>分配</th>
                             <th>录入时间</th>
-                            <th >操作</th>
                         </tr>
-                        @foreach($cunstomdatas as $cunstomdata)
+                        @foreach($allInputerDatas as $allInputerData)
                             <tr>
-                                <td>{{$cunstomdata->id}}.</td>
-                                <td>{{$cunstomdata->name}}</td>
-                                <td>{{$cunstomdata->gender}}</td>
-                                <td>{{\App\Admin\Referer::where('id',$cunstomdata->referer)->value('sections')}}</td>
-                                <td>{{$cunstomdata->wechat}}</td>
-                                <td>{{$cunstomdata->phone}}</td>
-                                <td>{{\App\Admin\Packagetype::where('id',$cunstomdata->package)->value('sections')}}</td>
-                                <td>{{$cunstomdata->notes}}</td>
-                                <td>{{$cunstomdata->inputer}}</td>
-                                <td>{{$cunstomdata->status}}</td>
-                                <td>{{$cunstomdata->operate}}</td>
-                                <td>{{$cunstomdata->created_at}}</td>
-                                <td><span class="badge bg-green"><a href="/data/edit/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> <span class="badge bg-red"><a href="/data/delete/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">删除</a> </span></td>
+                                <td>{{$allInputerData->id}}</td>
+                                <td>{{$allInputerData->name}}</td>
+                                <td>{{$allInputerData->gender}}</td>
+                                <td>{{$allInputerData->referer}}</td>
+                                <td>{{$allInputerData->wechat}}</td>
+                                <td>{{$allInputerData->phone}}</td>
+                                <td>{{$allInputerData->package}}</td>
+                                <td>{{$allInputerData->notes}}</td>
+                                <td>{{$allInputerData->inputer}}</td>
+                                <td>{{$allInputerData->status}}</td>
+                                <td>{{$allInputerData->operate}}</td>
+                                <td>{{$allInputerData->created_at}}</td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    {!! $cunstomdatas->links() !!}
+                    {!! $allInputerDatas->links() !!}
                 </div>
             </div>
             <!-- /.box -->

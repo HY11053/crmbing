@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">客户信息列表</h3>
+                    <h3 class="box-title">电话客服接单列表</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -20,34 +20,32 @@
                             <th>手机号码</th>
                             <th>套餐类型</th>
                             <th>备注</th>
-                            <th>录入者</th>
                             <th>客户状态</th>
                             <th>分配</th>
                             <th>录入时间</th>
-                            <th >操作</th>
+                            <th>跟进次数</th>
                         </tr>
-                        @foreach($cunstomdatas as $cunstomdata)
+                        @foreach($allCustomerserviceDatas as $allCustomerserviceData)
                             <tr>
-                                <td>{{$cunstomdata->id}}.</td>
-                                <td>{{$cunstomdata->name}}</td>
-                                <td>{{$cunstomdata->gender}}</td>
-                                <td>{{\App\Admin\Referer::where('id',$cunstomdata->referer)->value('sections')}}</td>
-                                <td>{{$cunstomdata->wechat}}</td>
-                                <td>{{$cunstomdata->phone}}</td>
-                                <td>{{\App\Admin\Packagetype::where('id',$cunstomdata->package)->value('sections')}}</td>
-                                <td>{{$cunstomdata->notes}}</td>
-                                <td>{{$cunstomdata->inputer}}</td>
-                                <td>{{$cunstomdata->status}}</td>
-                                <td>{{$cunstomdata->operate}}</td>
-                                <td>{{$cunstomdata->created_at}}</td>
-                                <td><span class="badge bg-green"><a href="/data/edit/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">编辑</a></span> <span class="badge bg-red"><a href="/data/delete/{{$cunstomdata->id}}" style="color: #fff; font-weight: normal;">删除</a> </span></td>
+                                <td>{{$allCustomerserviceData->id}}</td>
+                                <td>{{$allCustomerserviceData->name}}</td>
+                                <td>{{$allCustomerserviceData->gender}}</td>
+                                <td>{{$allCustomerserviceData->referer}}</td>
+                                <td>{{$allCustomerserviceData->wechat}}</td>
+                                <td>{{$allCustomerserviceData->phone}}</td>
+                                <td>{{$allCustomerserviceData->package}}</td>
+                                <td>{{$allCustomerserviceData->notes}}</td>
+                                <td>{{$allCustomerserviceData->status}}</td>
+                                <td>{{$allCustomerserviceData->operate}}</td>
+                                <td>{{$allCustomerserviceData->created_at}}</td>
+                                <td class="text-center"><span class="badge bg-red-active" style="cursor: pointer" title="@foreach($allCustomerserviceData->Cnotes as $cnote) 【{{$cnote->notes}}】 @endforeach">{{$allCustomerserviceData->Cnotes->count()-1}}</span></td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    {!! $cunstomdatas->links() !!}
+                    {!! $allCustomerserviceDatas->links() !!}
                 </div>
             </div>
             <!-- /.box -->

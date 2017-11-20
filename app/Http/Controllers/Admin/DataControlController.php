@@ -44,8 +44,6 @@ class DataControlController extends Controller
     public function postDataAddition(Request $request)
     {
         Customer::where('phone',$request->input('phone'))->value('id')?exit('号码已存在'):'';
-        $request['referer']=Referer::where('id',$request['referer'])->value('sections');
-        $request['package']=Packagetype::where('id',$request['package'])->value('sections');
         $request['inputer']=User::where('id',Auth::id())->value('name');
         Customer::create($request->all());
         return redirect(route('dataimport'));
@@ -58,6 +56,7 @@ class DataControlController extends Controller
      */
     public function DataEdit($id)
     {
+        //Customer::where('id',$id)->value('')
         $packages=Packagetype::pluck('sections','id');
         $advertisements=Advertisement::pluck('sections','id');
         $allreferers=Referer::pluck('sections','id');

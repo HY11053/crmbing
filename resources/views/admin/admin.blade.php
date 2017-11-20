@@ -142,7 +142,7 @@
                 <li class="header">常用核心功能模块</li>
                 <li class=" treeview">
                     <a href="#">
-                        <i class="fa fa-user-circle-o"></i> <span>客户管理</span>
+                        <i class="fa fa-user-circle-o"></i> <span>客户数据管理</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -160,7 +160,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dropbox"></i>
-                        <span>推广渠道</span>
+                        <span>推广渠道管理</span>
                         <span class="pull-right-container">
               <span class="label label-primary pull-right">6</span>
             </span>
@@ -176,7 +176,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-user-secret"></i> <span>用户管理中心</span>
+                        <i class="fa fa-user-secret"></i> <span>用户权限管理</span>
                         <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span>
@@ -191,26 +191,30 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-pie-chart"></i>
-                        <span>数据处理</span>
+                        <span>数据汇总分析</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
-			<li @if(Request::getRequestUri()=='/articlecreate') class="active" @endif><a href="/articlecreate"><i class="fa fa-circle-o"></i>文章生成</a></li>
+			            <li @if(Request::getRequestUri()=='/admin/index') class="active" @endif><a href="/admin/index"><i class="fa fa-circle-o"></i>部门数据汇总</a></li>
+			            <li @if(Request::getRequestUri()=='/inputer/index') class="active" @endif><a href="/inputer/index"><i class="fa fa-circle-o"></i>数据录入汇总</a></li>
+			            <li @if(Request::getRequestUri()=='/customerservice/index') class="active" @endif><a href="/customerservice/index"><i class="fa fa-circle-o"></i>客服接待汇总</a></li>
+			            <li @if(Request::getRequestUri()=='/customervisit/index') class="active" @endif><a href="/customervisit/index"><i class="fa fa-circle-o"></i>门店接待汇总</a></li>
 
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-laptop"></i>
-                        <span>数据导入</span>
+                        <span>客户数据导入</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Request::getRequestUri()=='/importdatas') class="active" @endif><a href="/importdatas"><i class="fa fa-circle-o"></i>数据导入</a></li>
+                        <li @if(Request::getRequestUri()=='/importdatastxt') class="active" @endif><a href="/importdatastxt"><i class="fa fa-circle-o"></i>TXT格式导入</a></li>
+                        <li @if(Request::getRequestUri()=='/importdatasexcel') class="active" @endif><a href="/importdatasexcel"><i class="fa fa-circle-o"></i>EXCEL格式导入</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

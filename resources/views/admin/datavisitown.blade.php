@@ -32,7 +32,7 @@
                                 <td>{{$customerVisit->gender}}</td>
                                 <td>{{$customerVisit->wechat}}</td>
                                 <td>{{$customerVisit->phone}}</td>
-                                <td>{{$customerVisit->package}}</td>
+                                <td>{{\App\Admin\Packagetype::where('id',$customerVisit->package)->value('sections')}}</td>
                                 <td>{{$customerVisit->payment}}</td>
                                 <td>{{$customerVisit->notes}}</td>
                                 <td>{{$customerVisit->operate}}--{{$customerVisit->status}}</td>
@@ -44,7 +44,7 @@
                                         <span class="badge bg-red" style="cursor: pointer; font-weight: normal;" id="status{{$customerVisit->id}}" onclick="storeStatusChick('status{{$customerVisit->id}}',{{$customerVisit->id}})">{{$customerVisit->storestatus}}</span>
                                     @endif
                                 </td>
-                                <td><span class="badge bg-red"><a href="/data/edit/{{$customerVisit->id}}" style="color: #fff; font-weight: normal;">编辑</a></span></td>
+                                <td><span class="badge bg-red"><a href="/visit/edit/{{$customerVisit->id}}" style="color: #fff; font-weight: normal;">编辑</a></span></td>
                             </tr>
                         @endforeach
                     </table>

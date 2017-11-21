@@ -1,5 +1,5 @@
 @extends('admin.admin')
-@section('title')客户信息录入 @stop
+@section('title')客服接待客户信息编辑 @stop
 @section('headlibs')
     <link href="/AdminLTE/plugins/iCheck/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
@@ -9,7 +9,7 @@
 @stop
 @section('content')
     <div class="row">
-        {{Form::model($thiscunstomdata,array('route' =>array('postdataedit', $thiscunstomdata->id)))}}
+        {{Form::model($thiscunstomdata,array('route' =>array('servicedataedit', $thiscunstomdata->id)))}}
         <div class="col-md-12">
             <!-- The time line -->
             <ul class="timeline basic_info">
@@ -36,7 +36,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('name',null, array('class' => 'form-control  pull-right','placeholder'=>'客户姓名'))}}
+                                        {{Form::text('name',null, array('class' => 'form-control  pull-right','placeholder'=>'客户姓名','disabled'))}}
                                     </div>
                                 </div>
 
@@ -46,7 +46,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-venus-double" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('gender', ['男'=>'男','女'=>'女'], null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                        {{Form::select('gender', ['男'=>'男','女'=>'女'], null,array('class'=>'form-control pull-right','style'=>'width: 100%','disabled'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -55,7 +55,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-line-chart" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('referer', $allreferers, null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                        {{Form::select('referer', $allreferers, null,array('class'=>'form-control pull-right','style'=>'width: 100%','disabled'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -64,7 +64,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-weixin" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('wechat', null, array('class' => 'form-control col-md-10 pull-right','placeholder'=>'QQ/微信'))}}
+                                        {{Form::text('wechat', null, array('class' => 'form-control col-md-10 pull-right','placeholder'=>'QQ/微信','disabled'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -73,7 +73,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-phone" style="width:10px;"></i>
                                         </div>
-                                        {{Form::text('phone', null, array('class' => 'form-control col-md-10 pull-right','placeholder'=>'手机号码'))}}
+                                        {{Form::text('phone', null, array('class' => 'form-control col-md-10 pull-right','placeholder'=>'手机号码','disabled'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -100,7 +100,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-location-arrow" style="width:10px;"></i>
                                         </div>
-                                        {{Form::select('advertisement', $advertisements, null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                        {{Form::select('advertisement', $advertisements, null,array('class'=>'form-control pull-right','style'=>'width: 100%','disabled'))}}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -120,6 +120,23 @@
                                             <i class="fa fa-jpy" style="width:10px;"></i>
                                         </div>
                                         {{Form::text('payment', null, array('class' => 'form-control pull-right','placeholder'=>'请输入已交金额','style'=>'width:100%'))}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    {{Form::label('dealstatus', '订单状态', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
+                                    <div class="radio col-md-4 col-sm-9 col-xs-12">
+                                        {{Form::radio('dealstatus', '1', false,array('class'=>'flat-red'))}} 已成单
+                                        {{Form::radio('dealstatus', '2', false,array('class'=>'flat-red'))}} 退单
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{Form::label('drainreason', '退单原因', array('class' => 'control-label col-md-2 col-sm-3 col-xs-12'))}}
+                                    <div class="input-group col-md-8 col-sm-9 col-xs-12">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-map-o" style="width:10px;"></i>
+                                        </div>
+                                        {{Form::text('drainreason', null, array('class' => 'form-control pull-right','placeholder'=>'退单原因'))}}
                                     </div>
                                 </div>
 

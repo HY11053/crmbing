@@ -7,10 +7,14 @@ use App\Admin\Customer;
 use App\Admin\Customnote;
 use App\Admin\Packagetype;
 use App\Admin\Referer;
+use App\Notifications\ReceivedNotification;
+use App\Notifications\ReturnedNotification;
+use App\Notifications\VisitedNotification;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class DataControlController extends Controller
@@ -56,7 +60,7 @@ class DataControlController extends Controller
      */
     public function DataEdit($id)
     {
-        //Customer::where('id',$id)->value('')
+        Customer::where('id',$id)->value('operate')?abort(403):'';
         $packages=Packagetype::pluck('sections','id');
         $advertisements=Advertisement::pluck('sections','id');
         $allreferers=Referer::pluck('sections','id');
@@ -76,24 +80,10 @@ class DataControlController extends Controller
         {
             $notes=User::where('id',Auth::id())->value('name').'将信息【'.Customer::where('id',$id)->value('notes').'】修改为'.$request['notes'];
             Customnote::create(['cid'=>$id,'notes'=>$notes]);
-            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
+            //Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
         }
-
         Customer::findOrfail($id)->update($request->all());
-        return redirect(route('customerservice'));
-    }
-
-    /**
-     * 数据删除
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function DataDelete($id)
-    {
-        if (Auth::id()!=1){
-            abort(403);
-        }
-        Customer::where('id',Customer::findOrfail($id)->id)->delete();
+        //return redirect(route('customerservice'));
         return redirect(route('dataview'));
     }
 
@@ -123,6 +113,7 @@ class DataControlController extends Controller
             $request['notes']='分配给'.User::where('id',Auth::id())->value('name');
             Customnote::create(['cid'=>$request['id'],'notes'=>$request['notes']]);
             Customer::where('id',$request->input('id'))->update(['status'=>$status,'operate'=>$operateUser,'allocated_at'=>$request['allocated_at']]);
+            User::where('id',Auth::id())->first()->notify(new ReceivedNotification(Customer::findOrFail($request->id)));
         }else{
             $status=Customer::where('id',$request['id'])->value('operate').'已领取';
             $operateUser=Customer::where('id',$request->input('id'))->value('operate');
@@ -141,6 +132,43 @@ class DataControlController extends Controller
         return view('admin.customerservice',compact('cunstomdatas'));
     }
 
+    /**客服接待信息编辑
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function ServiceDataEdit($id)
+    {
+        $packages=Packagetype::pluck('sections','id');
+        $advertisements=Advertisement::pluck('sections','id');
+        $allreferers=Referer::pluck('sections','id');
+        $thiscunstomdata=Customer::findOrfail($id);
+        return view('admin.service_edit',compact('thiscunstomdata','packages','advertisements','allreferers'));
+
+    }
+
+    /**客服接待信息编辑处理
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function PostServiceDataEdit(Request $request,$id)
+    {
+        if($request['notes']!=Customer::where('id',$id)->value('notes'))
+        {
+            $notes=User::where('id',Auth::id())->value('name').'将信息【'.Customer::where('id',$id)->value('notes').'】修改为'.$request['notes'];
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
+        }
+        Customer::findOrfail($id)->update($request->all());
+        $dealstatus=Customer::where('id',$id)->value('dealstatus');
+        Customer::findOrfail($id)->update($request->all());
+        if (Customer::where('id',$id)->value('dealstatus')==2 && $request->input('dealstatus')!=$dealstatus)
+        {
+            User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
+        }
+        return redirect(route('customerservice'));
+
+    }
 
     /**
      * 门店接待
@@ -148,7 +176,7 @@ class DataControlController extends Controller
      */
     public function CustomerVisit()
     {
-        $customerVisits=Customer::where('visit_at','>',Carbon::now())->where('operate','<>',null)->where('receptionist',null)->paginate(50);
+        $customerVisits=Customer::where('visit_at','>',Carbon::now())->where('dealstatus',0)->where('operate','<>',null)->where('receptionist',null)->paginate(50);
         return view('admin.datavisit',compact('customerVisits'));
 
     }
@@ -168,6 +196,7 @@ class DataControlController extends Controller
             $request['notes']=User::where('id',Auth::id())->value('name').'领取接待';
             Customnote::create(['cid'=>$request['id'],'notes'=>$request['notes']]);
             Customer::where('id',$request->input('id'))->update(['storestatus'=>$status,'receptionist'=>$receptionistUser,'reception_at'=>$request['reception_at']]);
+            User::where('id',Auth::id())->first()->notify(new VisitedNotification(Customer::findOrFail($request->id)));
         }else{
             $status=Customer::where('id',$request['id'])->value('receptionist').'已接待';
             $receptionistUser=Customer::where('id',$request->input('id'))->value('receptionist');
@@ -176,9 +205,62 @@ class DataControlController extends Controller
         return [$status,$receptionistUser];
     }
 
+    /**门店已领取客户
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function CustomerVisitOwn()
     {
         $customerVisits=Customer::where('visit_at','>',Carbon::now())->where('operate','<>',null)->where('receptionist',User::where('id',Auth::id())->value('name'))->paginate(50);
         return view('admin.datavisitown',compact('customerVisits'));
     }
+
+    /**客户来访数据编辑
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function VisitDataEdit($id)
+    {
+        $packages=Packagetype::pluck('sections','id');
+        $advertisements=Advertisement::pluck('sections','id');
+        $allreferers=Referer::pluck('sections','id');
+        $thiscunstomdata=Customer::findOrfail($id);
+        return view('admin.visit_edit',compact('thiscunstomdata','packages','advertisements','allreferers'));
+    }
+
+    /**客户来访数据编辑处理
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function PostVisitDataEdit(Request $request,$id)
+    {
+        if($request['notes']!=Customer::where('id',$id)->value('notes'))
+        {
+            $notes=User::where('id',Auth::id())->value('name').'将信息【'.Customer::where('id',$id)->value('notes').'】修改为'.$request['notes'];
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
+        }
+        $dealstatus=Customer::where('id',$id)->value('dealstatus');
+        Customer::findOrfail($id)->update($request->all());
+        if (Customer::where('id',$id)->value('dealstatus')==2 && $request->input('dealstatus')!=$dealstatus)
+        {
+            User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
+        }
+        return redirect(route('customervisitown'));
+    }
+
+    /**
+     * 数据删除
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function DataDelete($id)
+    {
+        if (Auth::id()!=1){
+            abort(403);
+        }
+        Customer::where('id',Customer::findOrfail($id)->id)->delete();
+        return redirect(route('dataview'));
+    }
+
 }

@@ -12,7 +12,6 @@
 */
 
 Route::get('/','Auth\LoginController@showLoginForm')->name('login');
-//Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout');
@@ -23,6 +22,10 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::post('data/add', 'DataControlController@postDataAddition')->name('postdata')->middleware('inputer');
     Route::get('data/edit/{id}', 'DataControlController@DataEdit');
     Route::post('data/edit/{id}', 'DataControlController@postDataEdit')->name('postdataedit');
+    Route::get('/service/edit/{id}', 'DataControlController@ServiceDataEdit');
+    Route::post('/service/edit/{id}', 'DataControlController@PostServiceDataEdit')->name('servicedataedit');
+    Route::get('/visit/edit/{id}', 'DataControlController@VisitDataEdit');
+    Route::post('/visit/edit/{id}', 'DataControlController@PostVisitDataEdit')->name('visitdataedit');
     Route::get('data/delete/{id}', 'DataControlController@DataDelete');
     Route::get('data/unclaimed', 'DataControlController@dataUnclaimed')->name('dataunclaimed')->middleware('service');
     Route::post('/unclaimed/status/{id}', 'DataControlController@dataUnclaimedStatus')->middleware('service');
@@ -63,6 +66,8 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('/inputer/index','DataAnalysisController@inputerAnalysis');
     Route::get('/customerservice/index','DataAnalysisController@customerserviceAnalysis');
     Route::get('/customervisit/index','DataAnalysisController@customervisitAnalysis');
+    Route::get('customer/success','DataAnalysisController@customerSuccessAnalysis');
+    Route::get('customer/unsuccess','DataAnalysisController@customerUnsuccessAnalysis');
     Route::get('/importdatastxt','DataImportController@dataImportText');
     Route::put('/importdatastxt','DataImportController@putDataImportText')->name('textimport');
 

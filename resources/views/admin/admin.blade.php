@@ -1,3 +1,4 @@
+@inject('notications',App\Notification')
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,48 +50,102 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <span class="label label-success">{{count($notications->ReceivedNotications())}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
+                            <li class="header">你有{{count($notications->ReceivedNotications())}}个客户领取通知</li>
                             <li>
-                                <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
+                                    @foreach($notications->ReceivedNotications() as $receivednotication)
+                                        @if($loop->index>6)
+                                            @break
+                                        @endif
+                                            <li>
+                                                <a href="#">
+                                                    <div class="pull-left">
+                                                        <img src=" /AdminLTE/dist/img/user4-128x128.jpg " class="img-circle" alt="User Image">
+                                                    </div>
+                                                    <h4>
+                                                        数据领取通知
+                                                        <small><i class="fa fa-clock-o"></i>{{\Carbon\Carbon::parse($receivednotication->created_at)->diffForHumans()}}</small>
+                                                    </h4>
+                                                    <p>{{$receivednotication->data['name']}}--{{$receivednotication->data['phone']}}已领取</p>
+                                                </a>
+                                            </li>
+                                    @endforeach
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="#">清除所有消息通知</a></li>
                         </ul>
                     </li>
                     <!-- Notifications: style can be found in dropdown.less -->
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
+                            <span class="label label-warning">{{count($notications->ReturnedNotications())}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
+                            <li class="header">你有{{count($notications->ReturnedNotications())}}个退单通知</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+
+                                    @foreach($notications->ReturnedNotications() as $returnednotication)
+                                        @if($loop->index>6)
+                                            @break
+                                        @endif
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-aqua"></i>{{$returnednotication['phone']}}---{{$returnednotication['drainreason']}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="/admin/clearnotification">清除所有消息通知</a></li>
                         </ul>
                     </li>
                     <!-- Tasks: style can be found in dropdown.less -->
-                    <li class="dropdown tasks-menu">
+                    <li class="dropdown  messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">9</span>
+                            <span class="label label-danger">{{count($notications->VisitedNotications())}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 9 tasks</li>
+                            <li class="header">你有{{count($notications->VisitedNotications())}}个门店接待通知</li>
+                            <li>
+                                <ul class="menu">
+                                    @foreach($notications->VisitedNotications() as $visitednotication)
+                                        @if($loop->index>6)
+                                            @break
+                                        @endif
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src=" /AdminLTE/dist/img/user4-128x128.jpg " class="img-circle" alt="User Image">
+                                                </div>
+                                                <h4>
+                                                    门店接待通知
+                                                    <small><i class="fa fa-clock-o"></i>{{\Carbon\Carbon::parse($visitednotication->created_at)->diffForHumans()}}</small>
+                                                </h4>
+                                                <p>{{$visitednotication->data['name']}}--{{$visitednotication->data['phone']}}待接待</p>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/adminlte/dist/img/user5-128x128.jpg" class="user-image" alt="User Image">
+                            <img src="@if(\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('avatar')) {{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('avatar')}} @else/adminlte/dist/img/user5-128x128.jpg @endif" class="user-image" alt="{{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('name')}}">
                             <span class="hidden-xs">{{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('name')}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="/adminlte/dist/img/user5-128x128.jpg" class="img-circle" alt="User Image">
+                                <img src="@if(\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('avatar')) {{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('avatar')}} @else/adminlte/dist/img/user5-128x128.jpg @endif" class="img-circle" alt="{{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('name')}}">
 
                             </li>
                             <li class="user-footer">
@@ -119,7 +174,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="/adminlte/dist/img/user5-128x128.jpg" class="img-circle" alt="User Image">
+                    <img src="@if(\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('avatar')) {{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('avatar')}} @else/adminlte/dist/img/user5-128x128.jpg @endif" class="img-circle" alt="{{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('name')}}">
                 </div>
                 <div class="pull-left info">
                     <p>{{\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('name')}}</p>
@@ -201,6 +256,8 @@
 			            <li @if(Request::getRequestUri()=='/inputer/index') class="active" @endif><a href="/inputer/index"><i class="fa fa-circle-o"></i>数据录入汇总</a></li>
 			            <li @if(Request::getRequestUri()=='/customerservice/index') class="active" @endif><a href="/customerservice/index"><i class="fa fa-circle-o"></i>客服接待汇总</a></li>
 			            <li @if(Request::getRequestUri()=='/customervisit/index') class="active" @endif><a href="/customervisit/index"><i class="fa fa-circle-o"></i>门店接待汇总</a></li>
+			            <li @if(Request::getRequestUri()=='/customer/success') class="active" @endif><a href="/customer/success"><i class="fa fa-circle-o"></i>已成单的客户</a></li>
+			            <li @if(Request::getRequestUri()=='/customer/unsuccess') class="active" @endif><a href="/customer/unsuccess"><i class="fa fa-circle-o"></i>已退单的客户</a></li>
 
                     </ul>
                 </li>
@@ -225,21 +282,16 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Request::getRequestUri()=='/works') class="active" @endif><a href="/works"><i class="fa fa-circle-o"></i> 编辑工作报表</a></li>
-                        <li @if(Request::getRequestUri()=='/workstui') class="active" @endif><a href="/workstui"><i class="fa fa-circle-o"></i> 外推工作报表</a></li>
-                        <li @if(Request::getRequestUri()=='/works/articleimport') class="active" @endif><a href="/works/articleimport"><i class="fa fa-circle-o"></i>编辑工作报表导入</a></li>
-                        <li @if(Request::getRequestUri()=='/works/tuimport') class="active" @endif><a href="/works/tuimport"><i class="fa fa-circle-o"></i> 外推工作报表导入</a></li>
-                    </ul>
+                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>品牌数据汇总</span>
+                        <i class="fa fa-table"></i> <span>推广分析汇总</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="/home"><i class="fa fa-circle-o"></i> 数据汇总</a></li>
 
                     </ul>
                 </li>
@@ -272,9 +324,9 @@
                     </a>
 
                 </li>
-                <li><a href="https://github.com/HY11053/ysgcrm"><i class="fa fa-book"></i> <span>使用文档</span></a></li>
+                <li><a href="#"><i class="fa fa-book"></i> <span>使用文档</span></a></li>
                 <li class="header">LABELS</li>
-                <li><a href="https://github.com/HY11053/ysgcrm"><i class="fa fa-circle-o text-red"></i> <span>documentation</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>documentation</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

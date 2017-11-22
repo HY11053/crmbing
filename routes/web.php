@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('customer/unsuccess','DataAnalysisController@customerUnsuccessAnalysis');
     Route::get('/importdatastxt','DataImportController@dataImportText');
     Route::put('/importdatastxt','DataImportController@putDataImportText')->name('textimport');
+    Route::get('/importdatasexcel','DataImportController@dataImportExcel');
+    Route::put('excel/import','ExcelController@importCunsomerDatas')->name('import_excel');
 
 
 });

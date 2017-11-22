@@ -37,11 +37,16 @@ class DataImportController extends Controller
                        'phone'=>$importdatas[4],
                        'package'=>$importdatas[5],
                        'notes'=>$importdatas[6],
-                       'advertisement'=>$importdatas,
+                       'advertisement'=>$importdatas[7],
                    ]
                );
            }
         }
 
+    }
+
+    public function dataImportExcel()
+    {
+        return view('admin.dataimport_excel');
     }
 }

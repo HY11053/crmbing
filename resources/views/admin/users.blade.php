@@ -24,8 +24,8 @@
                                 <td>{{$user->id}}.</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}} </td>
-                                <td> @if(isset($user->group->groupname)){{$user->group->groupname}}@endif</td>
-                                <td> @if(isset($user->group->grouptype))@if($user->group->grouptype==1)数据录入@elseif($user->group->grouptype==2) 电话客服 @else 门店客服 @endif @endif</td>
+                                <td>@if($user->id==1) 超级管理员@else @if(isset($user->group->groupname)){{$user->group->groupname}}@endif @endif</td>
+                                <td>@if($user->id==1) 超级管理员@else @if(isset($user->group->grouptype))@if($user->group->grouptype==1)数据录入@elseif($user->group->grouptype==2) 电话客服 @else 门店客服 @endif @endif @endif</td>
                                 <td style="text-align: center;">
                                     <a href="/adminuser/edit/{{$user->id}}"><span class="label label-success" style="font-weight: normal">编辑</span></a>
                                     <a href="/user/del/{{$user->id}}"><span style="font-weight: normal" class="label label-danger">删除</span></a>

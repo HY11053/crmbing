@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::put('/importdatastxt','DataImportController@putDataImportText')->name('textimport');
     Route::get('/importdatasexcel','DataImportController@dataImportExcel');
     Route::put('excel/import','ExcelController@importCunsomerDatas')->name('import_excel');
+    Route::get('notification/clear','NotificationClearController@notificationClear');
 
 
 });

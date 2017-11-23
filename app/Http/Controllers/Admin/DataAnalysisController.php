@@ -50,7 +50,7 @@ class DataAnalysisController extends Controller
      */
     public function customerUnsuccessAnalysis()
     {
-        $allCustomerunsuccessDatas=Customer::where('dealstatus','<>',1)->paginate(50);
+        $allCustomerunsuccessDatas=Customer::where('dealstatus','<>',1)->where('dealstatus','<>',0)->paginate(50);
         return view('admin.customerunsuccess_analysis',compact('allCustomerunsuccessDatas'));
     }
 }

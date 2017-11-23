@@ -14,11 +14,6 @@
     <link rel="stylesheet" href="/adminlte/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/adminlte/dist/css/skins/_all-skins.min.css">
     @yield('headlibs')
-    <style>
-        .sidebar-menu span {
-            font-size: 12px;
-        }
-    </style>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -26,9 +21,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
     <header class="main-header">
-
         <!-- Logo -->
         <a href="/admin/index" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -36,7 +29,6 @@
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>Admin</b>YSG</span>
         </a>
-
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
@@ -75,7 +67,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">清除所有消息通知</a></li>
+                            <li class="footer"><a href="/notification/clear">清除所有消息通知</a></li>
                         </ul>
                     </li>
                     <!-- Notifications: style can be found in dropdown.less -->
@@ -102,7 +94,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li class="footer"><a href="/admin/clearnotification">清除所有消息通知</a></li>
+                            <li class="footer"><a href="/notification/clear">清除所有消息通知</a></li>
                         </ul>
                     </li>
                     <!-- Tasks: style can be found in dropdown.less -->
@@ -134,6 +126,7 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            <li class="footer"><a href="/notification/clear">清除所有消息通知</a></li>
                         </ul>
                     </li>
                     <!-- User Account: style can be found in dropdown.less -->
@@ -336,10 +329,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                YSGCRM
-                <small>Version 1.0</small>
-            </h1>
+            <h1>YSGCRM<small>Version 1.0</small></h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>
@@ -381,7 +371,6 @@
 
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
                                 <p>Will be 23 on April 24th</p>
                             </div>
                         </a>
@@ -392,7 +381,6 @@
 
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
                                 <p>New phone +1(800)555-1234</p>
                             </div>
                         </a>
@@ -403,7 +391,6 @@
 
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
                                 <p>nora@example.com</p>
                             </div>
                         </a>
@@ -411,10 +398,8 @@
                     <li>
                         <a href="javascript:void(0)">
                             <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
                                 <p>Execution time 5 seconds</p>
                             </div>
                         </a>
@@ -430,7 +415,6 @@
                                 Custom Template Design
                                 <span class="label label-danger pull-right">70%</span>
                             </h4>
-
                             <div class="progress progress-xxs">
                                 <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
                             </div>
@@ -493,8 +477,6 @@
                             Some information about this general settings option
                         </p>
                     </div>
-                    <!-- /.form-group -->
-
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Allow mail redirect
@@ -505,70 +487,46 @@
                             Other sets of options are available
                         </p>
                     </div>
-                    <!-- /.form-group -->
-
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Expose author name in posts
                             <input type="checkbox" class="pull-right" checked>
                         </label>
-
                         <p>
                             Allow the user to show his name in blog posts
                         </p>
                     </div>
-                    <!-- /.form-group -->
-
                     <h3 class="control-sidebar-heading">Chat Settings</h3>
-
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Show me as online
                             <input type="checkbox" class="pull-right" checked>
                         </label>
                     </div>
-                    <!-- /.form-group -->
-
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Turn off notifications
                             <input type="checkbox" class="pull-right">
                         </label>
                     </div>
-                    <!-- /.form-group -->
-
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Delete chat history
                             <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
                         </label>
                     </div>
-                    <!-- /.form-group -->
                 </form>
             </div>
-            <!-- /.tab-pane -->
         </div>
     </aside>
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 
 </div>
-<!-- ./wrapper -->
-
-<!-- jQuery 2.2.3 -->
 <script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
 <script src="/adminlte/bootstrap/js/bootstrap.min.js"></script>
-<!-- FastClick -->
 <script src="/adminlte/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
 <script src="/adminlte/dist/js/app.min.js"></script>
-<!-- Sparkline -->
-<!-- SlimScroll 1.3.0 -->
 <script src="/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- AdminLTE for demo purposes -->
 <script src="/adminlte/dist/js/demo.js"></script>
 @yield('flibs')
 </body>

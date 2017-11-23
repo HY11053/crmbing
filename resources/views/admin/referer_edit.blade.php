@@ -1,5 +1,5 @@
 @extends('admin.admin')
-@section('title')信息来源添加 @stop
+@section('title')信息来源编辑 @stop
 @section('content')
     <div class="row">
         <div class="register-box">

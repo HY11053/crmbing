@@ -1,5 +1,5 @@
 @extends('admin.admin')
-@section('title')客户信息录入 @stop
+@section('title')客户信息编辑 @stop
 @section('headlibs')
     <link href="/AdminLTE/plugins/iCheck/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">

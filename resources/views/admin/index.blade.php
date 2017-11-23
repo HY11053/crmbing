@@ -271,7 +271,7 @@
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">最新文章片段组合添加</h3>
+                    <h3 class="box-title">最新录入信息</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -284,15 +284,24 @@
                     <div class="table-responsive">
                         <table class="table no-margin">
                             <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>内容</th>
-                                <th>类别</th>
-                                <th>添加时间</th>
-                                <th style="text-align: center;">上传人员</th>
-                            </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>姓名</th>
+                                    <th>电话</th>
+                                    <th>录入时间</th>
+                                    <th style="text-align: center;">录入人员</th>
+                                </tr>
                             </thead>
                             <tbody>
+                                @foreach($latestDatas as $index=>$latestData)
+                                    <tr>
+                                        <th>{{$index+1}}</th>
+                                        <th>{{$latestData->name}}</th>
+                                        <th>{{str_replace(substr($latestData->phone,5,4),'****',$latestData->phone)}}</th>
+                                        <th>{{$latestData->created_at}}</th>
+                                        <th style="text-align: center;">{{$latestData->inputer}}</th>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

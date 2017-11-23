@@ -1,5 +1,5 @@
 @extends('admin.admin')
-@section('title')客户信息导入——EXCEL @stop
+@section('title')客户信息导入信息反馈 @stop
 @section('headlibs')
     <link href="/adminlte/dist/css/fileinput.min.css" rel="stylesheet">
 @stop
@@ -109,4 +109,16 @@
 
 @section('flibs')
     <script src="/js/fileinput.min.js"></script>
+    <script>
+        $(document).bind("contextmenu",function(e) {
+            return false;
+        });
+        $(document).bind("keydown",function(e){
+            e=window.event||e;
+            if(e.keyCode==116){
+                e.keyCode = 0;
+                return false;
+            }
+        });
+    </script>
 @stop

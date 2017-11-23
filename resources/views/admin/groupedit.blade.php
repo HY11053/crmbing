@@ -2,10 +2,10 @@
 @section('content')
     <div class="register-box">
         <div class="register-logo">
-            <b>会员组更改</b>
+            <b>部门更改</b>
         </div>
         <div class="register-box-body">
-            <p class="login-box-msg">更改对应会员组信息</p>
+            <p class="login-box-msg">更改对应部门信息</p>
             {!! Form::model($thisGroupInfo, array('route' => array('groupedit', $thisGroupInfo->id),'method' => 'put')) !!}
             <div class="form-group has-feedback">
                 {{Form::text('groupname',null, array('class' => 'form-control','id'=>'groupname','placeholder'=>'组名称'))}}

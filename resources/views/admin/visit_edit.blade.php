@@ -182,34 +182,3 @@
 
 
 @stop
-
-@section('flibs')
-    <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        })
-    </script>
-
-    <script>
-        $(function () {
-            $('#datepicker').datepicker({
-                autoclose: true,
-                language: 'zh-CN',
-                todayHighlight: true
-            });
-            //Flat red color scheme for iCheck
-            $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-        });
-    </script>
-@stop

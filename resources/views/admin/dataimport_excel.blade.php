@@ -12,17 +12,14 @@
             <p class="timeline-header"><a href="">请上传.xls或.xlsx格式的文件</a></p>
         </div>
         <div class="form-group col-md-12">
-            {{Form::file('customers',  array('class' => 'file col-md-10','id'=>'input-2','multiple data-show-upload'=>'false','data-show-caption'=>'true'))}}
+            {{Form::file('customers',  array('class' => 'file col-md-10','id'=>'input-2','multiple data-show-upload'=>'false','data-show-caption'=>'true',' accept'=>'application/vnd.ms-excel'))}}
         </div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary">提交数据</button>
         </div>
         {!! Form::close() !!}
-
     </div>
-
 @stop
-
 
 @section('flibs')
     <script src="/js/fileinput.min.js"></script>

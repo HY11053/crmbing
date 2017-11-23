@@ -41,34 +41,3 @@
     <!-- /.row -->
     <!-- /.content -->
 @stop
-
-@section('libs')
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
-        });
-        function AjDelete (id,node) {
-            var id = id;
-            var node=node;
-            $.ajax({
-                //提交数据的类型 POST GET
-                type:"POST",
-                //提交的网址
-                url:"/admin/article/delete/"+id,
-                //提交的数据
-                data:{"id":id,'node':node},
-                //返回数据的格式
-                datatype: "html",    //"xml", "html", "script", "json", "jsonp", "text".
-                success:function (response, stutas, xhr) {
-                    $(".modal-s-m"+id+" .modal-body").html(response);
-                    $("#btn-"+id).attr("disabled","disabled");
-
-                }
-            });
-        }
-    </script>
-@stop

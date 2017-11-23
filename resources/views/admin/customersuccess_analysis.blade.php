@@ -1,12 +1,12 @@
 @extends('admin.admin')
-@section('title')客户信息浏览 @stop
+@section('title')已成单客户汇总 @stop
 @section('content')
 
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">电话客服接单列表</h3>
+                    <h3 class="box-title">已成单客户汇总</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -54,47 +54,4 @@
     </div>
     <!-- /.row -->
     <!-- /.content -->
-@stop
-
-
-@section('flibs')
-    <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-        })
-
-    </script>
-
-    <script>
-        $(function () {
-            $('#datepicker').datepicker({
-                autoclose: true
-            });
-
-            //iCheck for checkbox and radio inputs
-            $('.basic_info input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-            //Red color scheme for iCheck
-            $('.basic_info input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                checkboxClass: 'icheckbox_minimal-red',
-                radioClass: 'iradio_minimal-red'
-            });
-            //Flat red color scheme for iCheck
-            $('.basic_info input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-
-        });
-    </script>
 @stop

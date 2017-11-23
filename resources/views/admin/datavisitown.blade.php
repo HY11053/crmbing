@@ -61,37 +61,3 @@
     <!-- /.row -->
     <!-- /.content -->
 @stop
-
-
-@section('flibs')
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-        })
-        function storeStatusChick(element,id) {
-            $.ajax({
-                //提交数据的类型 POST GET
-                type:"POST",
-                //提交的网址
-                url:"/unreception/status/"+id,
-                //提交的数据
-                data:{"id":id},
-                //返回数据的格式
-                datatype: "html",    //"xml", "html", "script", "json", "jsonp", "text".
-                success:function (response, stutas, xhr) {
-                    //$(".modal-s-m"+id+" .modal-body").html(response);
-                    console.log(response)
-                    $('#'+element).text(response[0]);
-                    $('#receptionist'+id).text(response[1]);
-                    $('#'+element).removeClass( "bg-red" );
-                    $('#'+element).addClass( "bg-green" );
-                }
-            });
-        }
-    </script>
-@stop

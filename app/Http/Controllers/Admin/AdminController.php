@@ -16,6 +16,7 @@ class AdminController extends Controller
         $operateUsers=User::where('groupid',2)->pluck('name');
         $topOperateusers=[];
         $advertisementsInfos=[];
+        $latestDatas=Customer::take(10)->latest()->get();
         foreach ($operateUsers as $operateUser)
         {
             $topOperateusers[$operateUser]=Customer::where('operate',$operateUser)->where('follownum','>',0)->where('allocated_at','>',Carbon::today())->count();
@@ -36,6 +37,6 @@ class AdminController extends Controller
         $colorfuls=['#f56954','#00a65a','#f39c12','#00c0ef','#3c8dbc','#d2d6de'];
         $i=0;
         $j=0;
-       return view('admin.index',compact('advertisements','colors','topOperateusers','advertisementsInfos','i','j','colorfuls'));
+       return view('admin.index',compact('advertisements','colors','topOperateusers','advertisementsInfos','i','j','colorfuls','latestDatas'));
     }
 }

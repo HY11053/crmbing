@@ -1,5 +1,5 @@
 @extends('admin.admin')
-@section('title')套餐类型添加 @stop
+@section('title')套餐类型编辑 @stop
 @section('content')
     <div class="row">
         <div class="register-box">

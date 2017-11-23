@@ -155,11 +155,7 @@
                 }
             });
 
-        })
-
-    </script>
-
-    <script>
+        });
         $(function () {
             $('#datepicker').datepicker({
                 autoclose: true,

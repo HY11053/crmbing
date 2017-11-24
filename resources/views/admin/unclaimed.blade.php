@@ -65,8 +65,8 @@
 
 
 @section('flibs')
-    <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({

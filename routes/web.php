@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('/importdatasexcel','DataImportController@dataImportExcel');
     Route::put('excel/import','ExcelController@importCunsomerDatas')->name('import_excel');
     Route::get('notification/clear','NotificationClearController@notificationClear');
+    Route::get('/search','SearchOptionsController@phoneSearch');
 
 
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DataAnalysisController extends Controller
 {
@@ -13,7 +14,14 @@ class DataAnalysisController extends Controller
      */
     public function inputerAnalysis()
     {
-        $allInputerDatas=Customer::orderBy('id','desc')->Inputer()->paginate(50);
+        if(Auth::user()->usertype>2 || Auth::user()->groupid!=1)
+        {
+            if(Auth::user()->usertype!=1)
+            {
+                abort(403);
+            }
+        }
+        $allInputerDatas=Customer::orderBy('id','desc')->paginate(50);
         return view('admin.inputer_analysis',compact('allInputerDatas'));
     }
 
@@ -23,6 +31,13 @@ class DataAnalysisController extends Controller
      */
     public function customerserviceAnalysis()
     {
+        if(Auth::user()->usertype>2 || Auth::user()->groupid!=2)
+        {
+            if(Auth::user()->usertype!=1)
+            {
+                abort(403);
+            }
+        }
         $allCustomerserviceDatas=Customer::where('operate','<>',null)->orwhere('operate','<>','')->paginate(50);
         return view('admin.customerservice_analysis',compact('allCustomerserviceDatas'));
     }
@@ -32,6 +47,13 @@ class DataAnalysisController extends Controller
      */
     public function customervisitAnalysis()
     {
+        if(Auth::user()->usertype>2 || Auth::user()->groupid!=3)
+        {
+            if(Auth::user()->usertype!=1)
+            {
+                abort(403);
+            }
+        }
         $allCustomervisitDatas=Customer::where('receptionist','<>',null)->orwhere('receptionist','<>','')->paginate(50);
         return view('admin.customervisit_analysis',compact('allCustomervisitDatas'));
     }
@@ -41,6 +63,10 @@ class DataAnalysisController extends Controller
      */
     public function customerSuccessAnalysis()
     {
+        if(Auth::user()->usertype!=1)
+        {
+            abort(403);
+        }
         $allCustomersuccessDatas=Customer::where('dealstatus',1)->paginate(50);
         return view('admin.customersuccess_analysis',compact('allCustomersuccessDatas'));
     }
@@ -50,6 +76,10 @@ class DataAnalysisController extends Controller
      */
     public function customerUnsuccessAnalysis()
     {
+        if(Auth::user()->usertype!=1)
+        {
+            abort(403);
+        }
         $allCustomerunsuccessDatas=Customer::where('dealstatus','<>',1)->where('dealstatus','<>',0)->paginate(50);
         return view('admin.customerunsuccess_analysis',compact('allCustomerunsuccessDatas'));
     }

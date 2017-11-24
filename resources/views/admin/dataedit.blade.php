@@ -1,7 +1,7 @@
 @extends('admin.admin')
 @section('title')客户信息编辑 @stop
 @section('headlibs')
-    <link href="/AdminLTE/plugins/iCheck/all.css" rel="stylesheet">
+    <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
     <style>
         .basic_info .radio{margin-top: 0px;}
@@ -167,9 +167,9 @@
 @stop
 
 @section('flibs')
-    <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="/AdminLTE/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({

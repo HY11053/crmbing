@@ -50,21 +50,21 @@ class Notification
         }
         return$visitedNotication;
     }
-    /*
+
     function Allnotifications (){
         $allnotifications=array();
-        foreach (auth('admin')->user()->unreadNotifications as $notification) {
+        foreach (Auth::user()->unreadNotifications as $notification) {
                 $allnotifications[]=$notification;
         }
        return $allnotifications;
     }
-    public function taskNotification()
+    /*public function taskNotification()
     {
-        $articleUsers=array_unique(Archive::where('created_at','>',Carbon::today())->where('created_at','<',Carbon::now())->pluck('write')->toArray());
+        $articleUsers=array_unique(::where('created_at','>',Carbon::today())->where('created_at','<',Carbon::now())->pluck('write')->toArray());
         $colorStyle=['aqua','green','blue','red','yellow'];
         $labelStyle=['label-danger','label-info','label-warning','label-success','label-primary','label-default'];
         $taskDatas=['articleUsers'=>$articleUsers,'colorStyle'=>$colorStyle,'labelStyle'=>$labelStyle];
        return $taskDatas;
-    }
-    */
+    }*/
+
 }

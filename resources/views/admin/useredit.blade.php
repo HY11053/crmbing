@@ -23,24 +23,25 @@
                     {{Form::text('email',null, array('class' => 'form-control','id'=>'email'))}}
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
-                <div class="form-group has-feedback">
+                @if($user->id !=1)
+                    <div class="form-group has-feedback">
+                        @if(\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('usertype')==1)
+                        {{Form::select('groupid',$groups, null,array('class'=>'form-control select2'))}}
+                            @else
+                            {{Form::select('groupid',\App\Admin\UserGroup::where('id',\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('groupid'))->pluck('groupname','id'), null,array('class'=>'form-control select2'))}}
+                        @endif
+                    </div>
                     @if(\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('usertype')==1)
-                    {{Form::select('groupid',$groups, null,array('class'=>'form-control select2'))}}
-                        @else
-                        {{Form::select('groupid',\App\Admin\UserGroup::where('id',\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('groupid'))->pluck('groupname','id'), null,array('class'=>'form-control select2'))}}
+                    <div class="form-group has-feedback" style="margin-top: 10px; padding-left: 10px;">
+                        <label style="display: inline-block; margin-right: 10px;">
+                            <input type="radio" name="usertype" value="2" class="flat-red" @if($user->usertype==2) checked @endif>管理员
+                        </label>
+                        <label>
+                            <input type="radio" name="usertype" value="3" class="flat-red" @if($user->usertype==3) checked @endif>非管理员
+                        </label>
+                    </div>
                     @endif
-                </div>
-            @if(\App\User::where('id',\Illuminate\Support\Facades\Auth::id())->value('usertype')==1)
-                <div class="form-group has-feedback" style="margin-top: 10px; padding-left: 10px;">
-                    <label style="display: inline-block; margin-right: 10px;">
-                        <input type="radio" name="usertype" value="2" class="flat-red" @if($user->usertype==2) checked @endif>管理员
-                    </label>
-                    <label>
-                        <input type="radio" name="usertype" value="3" class="flat-red" @if($user->usertype==3) checked @endif>非管理员
-                    </label>
-                </div>
-          @endif
-
+                @endif
                 <div class="form-group has-feedback">
                     <input type="password" class="form-control" name="password" placeholder="密码">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>

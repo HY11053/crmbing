@@ -159,12 +159,20 @@ class DataControlController extends Controller
             Customnote::create(['cid'=>$id,'notes'=>$notes]);
             Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
         }
-        Customer::findOrfail($id)->update($request->all());
         $dealstatus=Customer::where('id',$id)->value('dealstatus');
         Customer::findOrfail($id)->update($request->all());
         if (Customer::where('id',$id)->value('dealstatus')==2 && $request->input('dealstatus')!=$dealstatus)
         {
             User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
+            User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
+            $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已退单】';
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
+        }elseif (Customer::where('id',$id)->value('dealstatus')==1 && $request->input('dealstatus')!=$dealstatus){
+
+            $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已成单】';
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
         }
         return redirect(route('customerservice'));
 
@@ -245,6 +253,13 @@ class DataControlController extends Controller
         if (Customer::where('id',$id)->value('dealstatus')==2 && $request->input('dealstatus')!=$dealstatus)
         {
             User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
+            $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已退单】';
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+        }elseif (Customer::where('id',$id)->value('dealstatus')==1 && $request->input('dealstatus')!=$dealstatus){
+
+            $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已成单】';
+            Customnote::create(['cid'=>$id,'notes'=>$notes]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
         }
         return redirect(route('customervisitown'));
     }

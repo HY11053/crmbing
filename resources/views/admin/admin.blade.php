@@ -175,11 +175,11 @@
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
+            <form action="/search/" method="get" class="sidebar-form">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <input type="text" name="tel" class="form-control" placeholder="输入客户电话">
                     <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit"  id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
                 </div>
@@ -363,162 +363,128 @@
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <h3 class="control-sidebar-heading">系统消息</h3>
                 <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                    @foreach($notications->Allnotifications() as $allnotification)
+                        @if($loop->index>3)
+                            @break
+                        @endif
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
+                        @if(class_basename(($allnotification['type']))=='ReceivedNotification')
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="menu-icon fa fa-user bg-red"></i>
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">{{$allnotification->data['name']}} :{{$allnotification->data['phone']}}</h4>
+                                        <p>时间：{{$allnotification['created_at']}}</p>
+                                    </div>
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-                                <p>New phone +1(800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                                    <div class="menu-info">
+                                        <h4 class="control-sidebar-subheading">{{$allnotification->data['drainreason']}} </h4>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-                                <p>nora@example.com</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-                                <p>Execution time 5 seconds</p>
-                            </div>
-                        </a>
-                    </li>
+                                        <p>{{$allnotification->data['phone']}} </p>
+                                    </div>
+                                </a>
+                            </li>
+
+                        @endif
+
+                    @endforeach
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
                 <h3 class="control-sidebar-heading">Tasks Progress</h3>
                 <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="label label-danger pull-right">70%</span>
-                            </h4>
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Update Resume
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Laravel Integration
-                                <span class="label label-warning pull-right">50%</span>
-                            </h4>
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Back End Framework
-                                <span class="label label-primary pull-right">68%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                            </div>
-                        </a>
-                    </li>
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
             </div>
             <!-- /.tab-pane -->
-
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">统计信息选项卡内容</div>
+            <!-- /.tab-pane -->
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
                 <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
+                    <h3 class="control-sidebar-heading">常规设置</h3>
 
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information about this general settings option
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Allow mail redirect
+                            面板使用反馈
                             <input type="checkbox" class="pull-right" checked>
                         </label>
 
                         <p>
-                            Other sets of options are available
+                            有关此常规设置选项的一些信息
                         </p>
                     </div>
+                    <!-- /.form-group -->
+
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
-                            Expose author name in posts
+                            允许邮件重定向
                             <input type="checkbox" class="pull-right" checked>
                         </label>
+
                         <p>
-                            Allow the user to show his name in blog posts
+                            其他可用选项
                         </p>
                     </div>
-                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+                    <!-- /.form-group -->
+
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
-                            Show me as online
+                            公开评论用户名
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            允许用户在博客帖子中显示其姓名
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">对话设置</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            显示当前在线
                             <input type="checkbox" class="pull-right" checked>
                         </label>
                     </div>
+                    <!-- /.form-group -->
+
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
-                            Turn off notifications
+                            关闭通知
                             <input type="checkbox" class="pull-right">
                         </label>
                     </div>
+                    <!-- /.form-group -->
+
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
-                            Delete chat history
+                            删除聊天记录
                             <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
                         </label>
                     </div>
+                    <!-- /.form-group -->
                 </form>
             </div>
+            <!-- /.tab-pane -->
         </div>
     </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
 
 </div>
@@ -528,6 +494,16 @@
 <script src="/adminlte/dist/js/app.min.js"></script>
 <script src="/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/adminlte/dist/js/demo.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+    });
+</script>
 @yield('flibs')
 </body>
 </html>

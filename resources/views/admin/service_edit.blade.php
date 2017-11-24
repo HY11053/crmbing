@@ -1,7 +1,7 @@
 @extends('admin.admin')
 @section('title')客服接待客户信息编辑 @stop
 @section('headlibs')
-    <link href="/AdminLTE/plugins/iCheck/all.css" rel="stylesheet">
+    <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
     <style>
         .basic_info .radio{margin-top: 0px;}
@@ -179,4 +179,26 @@
         {!! Form::close() !!}
 
     </div>
+@stop
+@section('flibs')
+    <!-- iCheck 1.0.1 -->
+    <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
+    <script src="/js/fileinput.min.js"></script>
+    <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script>
+        $(function () {
+            $('#datepicker').datepicker({
+                autoclose: true,
+                language: 'zh-CN',
+                todayHighlight: true
+            });
+        });
+        $(function () {
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
+        });
+    </script>
 @stop

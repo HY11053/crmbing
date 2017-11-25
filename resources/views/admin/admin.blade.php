@@ -380,7 +380,17 @@
                                     </div>
                                 </a>
                             </li>
-                        @else
+                        @elseif(class_basename(($allnotification['type']))=='VisitedNotification')
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="menu-icon fa fa-user bg-red"></i>
+                                        <div class="menu-info">
+                                            <h4 class="control-sidebar-subheading">{{$allnotification->data['name']}} :{{$allnotification->data['phone']}}</h4>
+                                            <p>时间：{{$allnotification['created_at']}}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            @else
                             <li>
                                 <a href="javascript:void(0)">
                                     <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>

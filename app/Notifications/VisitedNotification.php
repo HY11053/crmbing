@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Admin\Customer;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -58,7 +59,8 @@ class VisitedNotification extends Notification
     {
         return [
             'phone'=>$this->customer->phone,
-            'name'=>$this->customer->name
+            'name'=>$this->customer->name,
+            'time'=>Carbon::now()
         ];
     }
 }

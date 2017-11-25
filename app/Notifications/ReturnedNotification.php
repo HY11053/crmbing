@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Admin\Customer;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -57,7 +58,8 @@ class ReturnedNotification extends Notification
     {
         return [
             'phone'=>$this->customer->phone,
-            'drainreason'=>$this->customer->drainreason
+            'drainreason'=>$this->customer->drainreason,
+            'time'=>Carbon::now()
         ];
     }
 }

@@ -68,12 +68,10 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('/customervisit/index','DataAnalysisController@customervisitAnalysis');
     Route::get('customer/success','DataAnalysisController@customerSuccessAnalysis');
     Route::get('customer/unsuccess','DataAnalysisController@customerUnsuccessAnalysis');
-    Route::get('/importdatastxt','DataImportController@dataImportText');
-    Route::put('/importdatastxt','DataImportController@putDataImportText')->name('textimport');
-    Route::get('/importdatasexcel','DataImportController@dataImportExcel');
-    Route::put('excel/import','ExcelController@importCunsomerDatas')->name('import_excel');
+    Route::get('/importdatastxt','DataImportController@dataImportText')->middleware('inputer');
+    Route::put('/importdatastxt','DataImportController@putDataImportText')->name('textimport')->middleware('inputer');
+    Route::get('/importdatasexcel','DataImportController@dataImportExcel')->middleware('inputer');
+    Route::put('excel/import','ExcelController@importCunsomerDatas')->name('import_excel')->middleware('inputer');
     Route::get('notification/clear','NotificationClearController@notificationClear');
     Route::get('/search','SearchOptionsController@phoneSearch');
-
-
 });

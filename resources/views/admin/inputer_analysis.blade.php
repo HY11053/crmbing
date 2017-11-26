@@ -3,6 +3,7 @@
 @section('headlibs')
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">
+    <link href="/adminlte/plugins/select2/select2.min.css" rel="stylesheet">
 @stop
 @section('content')
 
@@ -11,7 +12,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">客户信息列表</h3>
-                    <form class="form-inline">
+                    <form class="form-inline pull-right" method="get" action="/inputer/index">
                         <div class="form-group">
                             <div class="input-group date " >
                                 <div class="input-group-addon">
@@ -31,7 +32,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-location-arrow" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', ['广告来源'], null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                {{Form::select('advertisement', $advertisements, null,array('class'=>'form-control select2 pull-right','style'=>'width: 150px;','data-placeholder'=>"广告来源",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -39,7 +40,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-line-chart" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', ['信息来源'], null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                {{Form::select('referer', $allreferers, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"信息来源",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -47,7 +48,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', ['录入者'], null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                {{Form::select('inputer', $inputers, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"录入人员",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -55,7 +56,8 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-jpy" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', ['订单状态'], null,array('class'=>'form-control pull-right','style'=>'width: 100%'))}}
+                                {{Form::select('dealstatus', [1=>'已成单',2=>'未成单'], null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"订单状态",'multiple'=>"multiple"))}}
+
                             </div>
                         </div>
                         <button type="submit" class="btn btn-danger">筛选数据</button>
@@ -99,7 +101,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    {!! $allInputerDatas->links() !!}
+                    {!! $allInputerDatas->appends($arguments)->links() !!}
                 </div>
             </div>
             <!-- /.box -->
@@ -113,6 +115,7 @@
     <script src="/adminlte/plugins/iCheck/icheck.min.js"></script>
     <script src="/adminlte/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="/adminlte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script src="/adminlte/plugins/select2/select2.full.min.js"></script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -122,6 +125,7 @@
             });
 
         });
+        $('.select2').select2();
         $(function () {
             $('#datepicker,#datepicker1').datepicker({
                 autoclose: true,

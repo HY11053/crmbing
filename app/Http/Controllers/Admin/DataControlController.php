@@ -7,6 +7,7 @@ use App\Admin\Customer;
 use App\Admin\Customnote;
 use App\Admin\Packagetype;
 use App\Admin\Referer;
+use App\Http\Requests\CustomerDataRequest;
 use App\Notifications\ReceivedNotification;
 use App\Notifications\ReturnedNotification;
 use App\Notifications\VisitedNotification;
@@ -45,12 +46,12 @@ class DataControlController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postDataAddition(Request $request)
+    public function postDataAddition(CustomerDataRequest $request)
     {
         Customer::where('phone',$request->input('phone'))->value('id')?exit('号码已存在'):'';
         $request['inputer']=User::where('id',Auth::id())->value('name');
         Customer::create($request->all());
-        return redirect(route('dataimport'));
+        return redirect(route('dataview'));
     }
 
     /**
@@ -74,7 +75,7 @@ class DataControlController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postDataEdit(Request $request,$id)
+    public function postDataEdit(CustomerDataRequest $request,$id)
     {
         if($request['notes']!=Customer::where('id',$id)->value('notes'))
         {

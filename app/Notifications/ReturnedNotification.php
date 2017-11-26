@@ -59,7 +59,7 @@ class ReturnedNotification extends Notification
         return [
             'phone'=>$this->customer->phone,
             'drainreason'=>$this->customer->drainreason,
-            'time'=>Carbon::now()
+            'name'=>$this->customer->name,
         ];
     }
 }

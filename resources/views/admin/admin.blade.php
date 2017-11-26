@@ -376,29 +376,28 @@
                                     <i class="menu-icon fa fa-user bg-red"></i>
                                     <div class="menu-info">
                                         <h4 class="control-sidebar-subheading">{{$allnotification->data['name']}} :{{$allnotification->data['phone']}}</h4>
-                                        <p>时间：{{$allnotification['created_at']}}</p>
+                                        <p>领取时间：{{$allnotification['created_at']}}</p>
                                     </div>
                                 </a>
                             </li>
                         @elseif(class_basename(($allnotification['type']))=='VisitedNotification')
                                 <li>
                                     <a href="javascript:void(0)">
-                                        <i class="menu-icon fa fa-user bg-red"></i>
+                                        <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
                                         <div class="menu-info">
                                             <h4 class="control-sidebar-subheading">{{$allnotification->data['name']}} :{{$allnotification->data['phone']}}</h4>
-                                            <p>时间：{{$allnotification['created_at']}}</p>
+                                            <p>接待时间：{{$allnotification['created_at']}}</p>
                                         </div>
                                     </a>
                                 </li>
                             @else
                             <li>
                                 <a href="javascript:void(0)">
-                                    <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
+                                    <i class="menu-icon fa fa-file-code-o bg-green"></i>
                                     <div class="menu-info">
-                                        <h4 class="control-sidebar-subheading">{{$allnotification->data['drainreason']}} </h4>
+                                        <h4 class="control-sidebar-subheading">{{$allnotification->data['name']}}：{{$allnotification->data['phone']}} </h4>
 
-                                        <p>{{$allnotification->data['phone']}} </p>
+                                        <p>退单原因：{{$allnotification->data['drainreason']}} </p>
                                     </div>
                                 </a>
                             </li>
@@ -409,10 +408,62 @@
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <h3 class="control-sidebar-heading">客服回访完成比</h3>
                 <ul class="control-sidebar-menu">
+                    @foreach(\App\User::where('groupid',2)->take(4)->inRandomOrder()->get() as $index=>$user)
+                    @if($loop->first)<li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                {{$user->name}}
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
 
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    @elseif($index==1)
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                {{$user->name}}
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
 
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                        @elseif($index==2)
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                {{$user->name}}
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                        @elseif($loop->last)
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                {{$user->name}}
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                        @endif
+                        @endforeach
                 </ul>
                 <!-- /.control-sidebar-menu -->
 

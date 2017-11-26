@@ -165,7 +165,6 @@ class DataControlController extends Controller
         if (Customer::where('id',$id)->value('dealstatus')==2 && $request->input('dealstatus')!=$dealstatus)
         {
             User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
-            User::where('name',Customer::where('id',$id)->value('inputer'))->first()->notify(new ReturnedNotification(Customer::findOrFail($id)));
             $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已退单】';
             Customnote::create(['cid'=>$id,'notes'=>$notes]);
             Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);

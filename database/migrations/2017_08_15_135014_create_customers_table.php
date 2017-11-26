@@ -28,9 +28,11 @@ class CreateCustomersTable extends Migration
             $table->timestamp('allocated_at')->nullable();//电话客服领取时间
             $table->timestamp('reception_at')->nullable();//门店客服领取客户时间
             $table->timestamp('visit_at')->nullable();//客户来店时间
+            $table->timestamp('successed_at')->nullable();//成单时间
             $table->string('inputer')->nullable();//信息录入者
             $table->string('operate')->nullable();//电话客服接待者
             $table->string('receptionist')->nullable();//门店客服接待者
+            $table->string('finishuser')->nullable();//成单人员
             $table->integer('dealstatus')->default(0);//订单状态
             $table->integer('payment')->nullable();//已交金额
             $table->string('drainreason')->nullable();//退单原因

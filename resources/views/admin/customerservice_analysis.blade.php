@@ -11,7 +11,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">客服接待汇总</h3>
-                    <form class="form-inline pull-right">
+                    <form class="form-inline pull-right" method="get" action="/customerservice/index">
                         <div class="form-group">
                             <div class="input-group date " >
                                 <div class="input-group-addon">
@@ -55,7 +55,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-jpy" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', ['订单状态'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"订单状态",'multiple'=>"multiple"))}}
+                                {{Form::select('advertisement', [1=>'已成单',2=>'未成单'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"订单状态",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-danger">筛选数据</button>
@@ -70,13 +70,13 @@
                             <th>姓名</th>
                             <th>性别</th>
                             <th>信息来源</th>
-                            <th>QQ/微信</th>
                             <th>手机号码</th>
                             <th>套餐类型</th>
                             <th>备注</th>
                             <th>客户状态</th>
                             <th>分配</th>
                             <th>录入时间</th>
+                            <th>订单状态</th>
                             <th>跟进次数</th>
                         </tr>
                         @foreach($allCustomerserviceDatas as $allCustomerserviceData)
@@ -84,14 +84,14 @@
                                 <td>{{$allCustomerserviceData->id}}</td>
                                 <td>{{$allCustomerserviceData->name}}</td>
                                 <td>{{$allCustomerserviceData->gender}}</td>
-                                <td>{{$allCustomerserviceData->referer}}</td>
-                                <td>{{$allCustomerserviceData->wechat}}</td>
+                                <td>{{\App\Admin\Referer::where('id',$allCustomerserviceData->referer)->value('sections')}}</td>
                                 <td>{{$allCustomerserviceData->phone}}</td>
-                                <td>{{$allCustomerserviceData->package}}</td>
+                                <td>{{\App\Admin\Packagetype::where('id',$allCustomerserviceData->package)->value('sections')}}</td>
                                 <td>{{$allCustomerserviceData->notes}}</td>
                                 <td>{{$allCustomerserviceData->status}}</td>
                                 <td>{{$allCustomerserviceData->operate}}</td>
                                 <td>{{$allCustomerserviceData->created_at}}</td>
+                                <td>@if($allCustomerserviceData->dealstatus==1) 已成单 @elseif($allCustomerserviceData->dealstatus==2) 已退单 @else 进行中 @endif</td>
                                 <td class="text-center"><span class="badge bg-red-active" style="cursor: pointer" title="@foreach($allCustomerserviceData->Cnotes as $cnote) 【{{$cnote->notes}}】 @endforeach">{{$allCustomerserviceData->Cnotes->count()-1}}</span></td>
                             </tr>
                         @endforeach
@@ -99,7 +99,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    {!! $allCustomerserviceDatas->links() !!}
+                    {!! $allCustomerserviceDatas->appends($arguments)->links() !!}
                 </div>
             </div>
             <!-- /.box -->

@@ -40,15 +40,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-line-chart" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', $allreferers, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"信息来源",'multiple'=>"multiple"))}}
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-jpy" style="width:10px;"></i>
-                                </div>
-                                {{Form::select('advertisement', ['订单状态'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"订单状态",'multiple'=>"multiple"))}}
+                                {{Form::select('referer', $allreferers, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"信息来源",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-danger">筛选数据</button>
@@ -63,13 +55,11 @@
                             <th>姓名</th>
                             <th>性别</th>
                             <th>信息来源</th>
-                            <th>QQ/微信</th>
+                            <th>广告来源</th>
                             <th>手机号码</th>
                             <th>套餐类型</th>
-                            <th>备注</th>
-                            <th>客户状态</th>
-                            <th>分配</th>
-                            <th>录入时间</th>
+                            <th>成单时间</th>
+                            <th>成单人员</th>
                             <th>跟进次数</th>
                         </tr>
                         @foreach($allCustomersuccessDatas as $allCustomersuccessData)
@@ -77,14 +67,12 @@
                                 <td>{{$allCustomersuccessData->id}}</td>
                                 <td>{{$allCustomersuccessData->name}}</td>
                                 <td>{{$allCustomersuccessData->gender}}</td>
-                                <td>{{$allCustomersuccessData->referer}}</td>
-                                <td>{{$allCustomersuccessData->wechat}}</td>
+                                <td>{{\App\Admin\Referer::where('id',$allCustomersuccessData->referer)->value('sections')}}</td>
+                                <td>{{\App\Admin\Advertisement::where('id',$allCustomersuccessData->advertisement)->value('sections')}}</td>
                                 <td>{{$allCustomersuccessData->phone}}</td>
-                                <td>{{$allCustomersuccessData->package}}</td>
-                                <td>{{$allCustomersuccessData->notes}}</td>
-                                <td>{{$allCustomersuccessData->status}}</td>
-                                <td>{{$allCustomersuccessData->operate}}</td>
-                                <td>{{$allCustomersuccessData->created_at}}</td>
+                                <td>{{\App\Admin\Packagetype::where('id',$allCustomersuccessData->package)->value('sections')}}</td>
+                                <td>{{$allCustomersuccessData->successed_at}}</td>
+                                <td>{{$allCustomersuccessData->finishuser}}</td>
                                 <td class="text-center"><span class="badge bg-red-active" style="cursor: pointer" title="@foreach($allCustomersuccessData->Cnotes as $cnote) 【{{$cnote->notes}}】 @endforeach">{{$allCustomersuccessData->Cnotes->count()-1}}</span></td>
                             </tr>
                         @endforeach
@@ -92,7 +80,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    {!! $allCustomersuccessDatas->links() !!}
+                    {!! $allCustomersuccessDatas->appends($arguments)->links() !!}
                 </div>
             </div>
             <!-- /.box -->

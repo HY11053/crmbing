@@ -40,7 +40,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-line-chart" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', $allreferers, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"信息来源",'multiple'=>"multiple"))}}
+                                {{Form::select('referer', $allreferers, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"信息来源",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -48,7 +48,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', $receptionist, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"接待客服",'multiple'=>"multiple"))}}
+                                {{Form::select('reception', $receptionist, null,array('class'=>'form-control select2  pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"接待客服",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -56,7 +56,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-jpy" style="width:10px;"></i>
                                 </div>
-                                {{Form::select('advertisement', ['订单状态'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"订单状态",'multiple'=>"multiple"))}}
+                                {{Form::select('dealstatus', [1=>'已成单',2=>'未成单'], null,array('class'=>'form-control select2 pull-right','style'=>'width: 100%','style'=>'width: 150px;','data-placeholder'=>"订单状态",'multiple'=>"multiple"))}}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-danger">筛选数据</button>
@@ -70,33 +70,27 @@
                             <th style="width: 10px">#ID</th>
                             <th>姓名</th>
                             <th>性别</th>
-                            <th>QQ/微信</th>
                             <th>手机号码</th>
                             <th>套餐类型</th>
                             <th>已付款</th>
                             <th>备注</th>
-                            <th>客服信息</th>
+                            <th>门店接待</th>
                             <th>来店时间</th>
-                            <th>门店状态</th>
+                            <th>订单状态</th>
                         </tr>
                         @foreach($allCustomervisitDatas as $allCustomervisitData)
                             <tr>
                                 <td>{{$allCustomervisitData->id}}.</td>
                                 <td>{{$allCustomervisitData->name}}</td>
                                 <td>{{$allCustomervisitData->gender}}</td>
-                                <td>{{$allCustomervisitData->wechat}}</td>
                                 <td>{{$allCustomervisitData->phone}}</td>
-                                <td>{{$allCustomervisitData->package}}</td>
+                                <td>{{\App\Admin\Packagetype::where('id',$allCustomervisitData->package)->value('sections')}}</td>
                                 <td>{{$allCustomervisitData->payment}}</td>
                                 <td>{{$allCustomervisitData->notes}}</td>
-                                <td>{{$allCustomervisitData->operate}}--{{$allCustomervisitData->status}}</td>
+                                <td>{{$allCustomervisitData->receptionist}}</td>
                                 <td>{{$allCustomervisitData->visit_at}}</td>
                                 <td>
-                                    @if($allCustomervisitData->storestatus=='已接待')
-                                        <span class="badge bg-green" style=" font-weight: normal;">已接待</span>
-                                    @else
-                                        <span class="badge bg-red" style="cursor: pointer; font-weight: normal;" id="status{{$allCustomervisitData->id}}" onclick="storeStatusChick('status{{$allCustomervisitData->id}}',{{$allCustomervisitData->id}})">{{$allCustomervisitData->storestatus}}</span>
-                                    @endif
+                                    @if($allCustomervisitData->dealstatus==1) 已成单 @elseif($allCustomervisitData->dealstatus==2) 已退单 @else 进行中 @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -104,7 +98,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    {!! $allCustomervisitDatas->links() !!}
+                    {!! $allCustomervisitDatas->appends($arguments)->links() !!}
                 </div>
             </div>
             <!-- /.box -->

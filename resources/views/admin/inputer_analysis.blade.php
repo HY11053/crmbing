@@ -78,7 +78,7 @@
                             <th>备注</th>
                             <th>录入者</th>
                             <th>客户状态</th>
-                            <th>分配</th>
+                            <th>订单状态</th>
                             <th>录入时间</th>
                         </tr>
                         @foreach($allInputerDatas as $allInputerData)
@@ -86,14 +86,14 @@
                                 <td>{{$allInputerData->id}}</td>
                                 <td>{{$allInputerData->name}}</td>
                                 <td>{{$allInputerData->gender}}</td>
-                                <td>{{$allInputerData->referer}}</td>
+                                <td>{{\App\Admin\Referer::where('id',$allInputerData->referer)->value('sections')}}</td>
                                 <td>{{$allInputerData->wechat}}</td>
                                 <td>{{$allInputerData->phone}}</td>
-                                <td>{{$allInputerData->package}}</td>
+                                <td>{{\App\Admin\Packagetype::where('id',$allInputerData->package)->value('sections')}}</td>
                                 <td>{{$allInputerData->notes}}</td>
                                 <td>{{$allInputerData->inputer}}</td>
                                 <td>{{$allInputerData->status}}</td>
-                                <td>{{$allInputerData->operate}}</td>
+                                <td>@if($allInputerData->dealstatus==1) 已成单 @elseif($allInputerData->dealstatus==2) 已退单 @else 进行中 @endif</td>
                                 <td>{{$allInputerData->created_at}}</td>
                             </tr>
                         @endforeach

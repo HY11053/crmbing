@@ -173,7 +173,7 @@ class DataControlController extends Controller
 
             $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已成单】';
             Customnote::create(['cid'=>$id,'notes'=>$notes]);
-            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1,'finishuser'=>Auth::user()->name,'successed_at'=>Carbon::now()]);
         }
         return redirect(route('customerservice'));
 
@@ -260,7 +260,7 @@ class DataControlController extends Controller
 
             $notes=User::where('id',Auth::id())->value('name').'将信息修改为【已成单】';
             Customnote::create(['cid'=>$id,'notes'=>$notes]);
-            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1]);
+            Customer::findOrfail($id)->update(['follownum'=>Customer::where('id',$id)->value('follownum')+1,'finishuser'=>Auth::user()->name,'successed_at'=>Carbon::now()]);
         }
         return redirect(route('customervisitown'));
     }

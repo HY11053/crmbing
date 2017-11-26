@@ -11,7 +11,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">今日订单完成数</span>
-                    <span class="info-box-number">{{\App\Admin\Customer::where('dealstatus',1)->where('updated_at','>',Carbon\Carbon::today())->count()}}</span>
+                    <span class="info-box-number">{{\App\Admin\Customer::where('dealstatus',1)->where('successed_at','>',Carbon\Carbon::today())->count()}}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

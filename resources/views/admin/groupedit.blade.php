@@ -1,4 +1,5 @@
 @extends('admin.admin')
+@section('position') <li class="active">部门组更改</li> @stop
 @section('content')
     <div class="register-box">
         <div class="register-logo">

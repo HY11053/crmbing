@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')客户信息查看 @stop
+@section('position') <li class="active">客户信息查看</li> @stop
 @section('content')
     <!-- The timeline -->
     <ul class="timeline timeline-inverse">

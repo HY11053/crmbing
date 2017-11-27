@@ -1,11 +1,12 @@
 @extends('admin.admin')
-@section('title') 前台用户列表 @stop
+@section('title') 部门人员列表 @stop
+@section('position') <li class="active">部门人员列表</li> @stop
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">前台用户列表</h3>
+                    <h3 class="box-title">部门人员列表</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

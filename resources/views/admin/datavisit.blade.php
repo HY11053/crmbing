@@ -1,5 +1,6 @@
 @extends('admin.admin')
-@section('title')客服来访信息列表 @stop
+@section('title')客户来访信息列表 @stop
+@section('position') <li class="active">客户来访信息</li> @stop
 @section('content')
 
     <div class="row">

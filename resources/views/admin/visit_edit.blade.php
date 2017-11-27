@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')门店接待客户信息编辑 @stop
+@section('position') <li class="active">门店接待客户信息编辑</li> @stop
 @section('headlibs')
     <link href="/adminlte/plugins/iCheck/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">

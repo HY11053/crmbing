@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title') 数据汇总预览 @stop
+@section('position') <li class="active">数据汇总预览</li> @stop
 @section('headlibs')
     <link rel="stylesheet" href="/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 @stop

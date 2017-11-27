@@ -75,5 +75,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $('#captcha').on('click',function () {
+            var captcha=$(this);
+            var url='/captcha/'+captcha.attr('data-captcha-config')+'/?'+Math.random();
+            captcha.attr('src',url)
+        })
+    </script>
 </body>
 </html>

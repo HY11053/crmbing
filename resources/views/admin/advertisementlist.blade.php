@@ -1,5 +1,6 @@
 @extends('admin.admin')
-@section('title')  信息来源列表@stop
+@section('title')  广告渠道列表@stop
+@section('position') <li class="active">广告渠道列表</li> @stop
 @section('headlibs')
     <style>td.newcolor span a{color: #fff; font-weight: 400; display: inline-block; padding: 2px;} td.newcolor span{margin-left: 5px;}</style>
 @stop

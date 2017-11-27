@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')客户数据数据导入TXT @stop
+@section('position') <li class="active">客户信息导入 txt</li> @stop
 @section('content')
     <h1 class="text-center">客户数据数据导入</h1>
     <hr/>

@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')信息来源编辑 @stop
+@section('position') <li class="active">信息来源编辑</li> @stop
 @section('content')
     <div class="row">
         <div class="register-box">

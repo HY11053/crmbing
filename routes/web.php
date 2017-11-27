@@ -75,3 +75,6 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('notification/clear','NotificationClearController@notificationClear');
     Route::get('/search','SearchOptionsController@phoneSearch');
 });
+Route::get('/captcha/{config?}',function (\Mews\Captcha\Captcha $captcha,$config='default'){
+    return $captcha->create($config);
+});

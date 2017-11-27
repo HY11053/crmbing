@@ -1,4 +1,6 @@
 @extends('admin.admin')
+@section('title')用户信息添加 @stop
+@section('position') <li class="active">用户信息添加</li> @stop
 @section('headlibs')
     <link rel="stylesheet" href="/adminlte/plugins/iCheck/all.css">
     <link href="/adminlte/dist/css/fileinput.min.css" rel="stylesheet">

@@ -1,4 +1,5 @@
 @extends('admin.admin')
+@section('position') <li class="active">部门列表</li> @stop
 @section('title') 部门列表 @stop
 @section('content')
     <div class="row">

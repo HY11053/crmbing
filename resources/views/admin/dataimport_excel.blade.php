@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')客户信息导入——EXCEL @stop
+@section('position') <li class="active">客户信息导入excel</li> @stop
 @section('headlibs')
     <link href="/adminlte/dist/css/fileinput.min.css" rel="stylesheet">
 @stop

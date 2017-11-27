@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')已成单客户汇总 @stop
+@section('position') <li class="active">成单客户汇总</li> @stop
 @section('headlibs')
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="/adminlte/plugins/datepicker/datepicker3.css">

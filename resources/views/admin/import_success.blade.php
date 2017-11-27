@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('title')客户信息导入信息反馈 @stop
+@section('position') <li class="active">客户信息导入反馈</li> @stop
 @section('headlibs')
     <link href="/adminlte/dist/css/fileinput.min.css" rel="stylesheet">
 @stop

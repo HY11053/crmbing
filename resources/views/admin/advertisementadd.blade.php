@@ -1,5 +1,6 @@
 @extends('admin.admin')
-@section('title')信息来源添加 @stop
+@section('title')广告渠道添加 @stop
+@section('position') <li class="active">广告渠道添加</li> @stop
 @section('content')
     <div class="row">
         <div class="register-box">

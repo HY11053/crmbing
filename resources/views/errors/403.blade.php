@@ -1,5 +1,5 @@
 @extends('admin.admin')
-@section('title')信息来源添加 @stop
+@section('title')无权限操作 @stop
 @section('content')
     <!-- Main content -->
     <section class="content">

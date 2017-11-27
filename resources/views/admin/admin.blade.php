@@ -202,7 +202,7 @@
                         <li @if(Request::getRequestUri()=='/data/customerservice') class="active" @endif><a href="/data/customerservice"><i class="fa fa-circle-o"></i> 已接待的客户</a></li>
                         <li @if(Request::getRequestUri()=='/data/customervisit') class="active" @endif><a href="/data/customervisit"><i class="fa fa-circle-o"></i> 门店接待中心</a></li>
                         <li @if(Request::getRequestUri()=='/data/customervisit/own') class="active" @endif><a href="/data/customervisit/own"><i class="fa fa-circle-o"></i> 门店客户对接</a></li>
-                        <li @if(Request::getRequestUri()=='/data/xzjq') class="active" @endif><a href="/data/xzjq"><i class="fa fa-circle-o"></i> 客户合同管理</a></li>
+                        <li @if(Request::getRequestUri()=='/contractmanagement') class="active" @endif><a href="/contractmanagement"><i class="fa fa-circle-o"></i> 客户合同管理</a></li>
                      </ul>
                 </li>
                 <li class="treeview">
@@ -330,7 +330,7 @@
         <!-- Content Header (Page header) -->
 
         <section class="content-header">
-            <h1>YSGCRM<small>Version 1.0</small></h1>
+            <h1>YSGCRM<small>Version 2.0.1</small></h1>
             <ol class="breadcrumb">
                 <li><a href="/admin/index"><i class="fa fa-dashboard"></i> 主页</a></li>
                 @yield('position')
@@ -346,7 +346,7 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.8
+            <b>Version</b> 2.0.1
         </div>
         <strong>Copyright &copy; 2014-2017 <a href="{{env('APP_URL')}}">YSG Studio</a>.</strong> All rights
         reserved.

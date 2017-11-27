@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth','namespace' => 'Admin'], function () {
     Route::get('data/customervisit', 'DataControlController@CustomerVisit')->name('customervisit')->middleware('store');
     Route::get('/data/customervisit/own', 'DataControlController@CustomerVisitOwn')->name('customervisitown')->middleware('store');
     Route::post('/unreception/status/{id}', 'DataControlController@dataReceptionStatus')->middleware('store');
+    Route::get('contractmanagement',function (){abort(403);});
     Route::get('/sysconf/refereradd', 'SysconfControlController@refererAdd');
     Route::post('/sysconf/refereradd', 'SysconfControlController@postRefererAdd')->name('refereradd');
     Route::get('/sysconf/refereraddlist', 'SysconfControlController@refererList')->name('refererlist');

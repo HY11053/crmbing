@@ -439,54 +439,12 @@
                                         <div class="progress-bar progress-bar-warnin" style="width: {{sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100}}%"></div>
                                     @elseif(sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100<70)
                                         <div class="progress-bar progress-bar-primary" style="width: {{sprintf("%.4f", (\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->where('follownum','>',0)->count())/(\App\Admin\Customer::where('operate',$user->name)->where('allocated_at','>',\Carbon\Carbon::today())->count()),0,-1)*100}}%"></div>
-
-
                                     @endif
                                 @endif
-
                             </div>
                         </a>
                     </li>
-                    @elseif($index==1)
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                {{$user->name}}
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-                        @elseif($index==2)
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                {{$user->name}}
-                                <span class="label label-warning pull-right">50%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                            </div>
-                        </a>
-                    </li>
-                        @elseif($loop->last)
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                {{$user->name}}
-                                <span class="label label-primary pull-right">68%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                            </div>
-                        </a>
-                    </li>
-                        @endif
                         @endforeach
                 </ul>
                 <!-- /.control-sidebar-menu -->
